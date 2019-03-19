@@ -16,8 +16,12 @@ public class Login {
         account = null;
     }
 
-    public void attemptLogin() {
-
+    public boolean attemptLogin() {
+        if (!accounts.containsKey(username))
+            return false;
+        if (!accounts.get(username).getPassword().equals(password))
+            return false;
+        return true;
     }
 
     public String getUsername() {
