@@ -9,6 +9,11 @@ public class Accounts {
         accountsMap = new HashMap<String, Account>();
     }
 
+    public void addSampleAccounts() {
+        Account managerAccount = new Account("Josh", "jmorris1", "password1", true);
+        addAccount(managerAccount);
+    }
+
     public boolean addAccount(Account account) {
         if (accountsMap.containsKey(account.getUsername())) {
             return false;
@@ -25,4 +30,11 @@ public class Accounts {
         return true;
     }
 
+    public HashMap<String, Account> getAccountsMap() {
+        return accountsMap;
+    }
+
+    public void setAccountsMap(HashMap<String, Account> accountsMap) {
+        this.accountsMap = accountsMap;
+    }
 }

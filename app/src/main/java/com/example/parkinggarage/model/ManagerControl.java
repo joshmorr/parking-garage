@@ -9,9 +9,4 @@ public class ManagerControl {
         system = new ParkingGarageSystem();
     }
 
-    public void addAttendantAccount(String name, String username, String password) {
-        system.getAccounts().put(username, new Account(name, username, password));
-    }
-
-
 }

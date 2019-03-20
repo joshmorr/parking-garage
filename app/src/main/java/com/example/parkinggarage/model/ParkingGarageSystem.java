@@ -5,18 +5,17 @@ import java.util.HashMap;
 public class ParkingGarageSystem {
     private Garage garage;
     private PaymentScheme scheme;
-    private HashMap<String, Account> accounts;
+    private Accounts accounts;
     private double moneyMade;
 
     public ParkingGarageSystem() {
         garage = new Garage();
         scheme = new PaymentScheme();
+        accounts = new Accounts();
     }
 
-    public ParkingGarageSystem(int size, PaymentScheme scheme) {
-        garage = new Garage(size);
-        this.scheme = scheme;
-        accounts = new HashMap<String, Account>();
+    public void setUpSampleSystem() {
+
     }
 
     public Garage getGarage() {
@@ -35,11 +34,11 @@ public class ParkingGarageSystem {
         this.scheme = scheme;
     }
 
-    public HashMap<String, Account> getAccounts() {
+    public Accounts getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(HashMap<String, Account> accounts) {
+    public void setAccounts(Accounts accounts) {
         this.accounts = accounts;
     }
 }
