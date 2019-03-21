@@ -4,4 +4,6 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="loginErrorMesssage">The username or password is incorrect. Try again.</string>
+    <string name="title_activity_manager">ManagerActivity</string>
 </resources>

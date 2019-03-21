@@ -47,4 +47,12 @@ public class Account {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isManager() {
+        return isManager;
+    }
+
+    public void setManager(boolean manager) {
+        isManager = manager;
+    }
 }
