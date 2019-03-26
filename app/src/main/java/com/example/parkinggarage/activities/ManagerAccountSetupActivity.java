@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.Account;
@@ -31,17 +32,16 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Account account = new Account();
-//                account.setFirstname(findViewById(R.id.firstnameInputEditText).toString());
-//                account.setLastname(findViewById(R.id.lastnameInputEditText).toString());
-//                account.setUsername(findViewById(R.id.usernameInputEditText).toString());
-//                account.setPassword(findViewById(R.id.passwordInputEditText).toString());
-//                account.setManager(true);
+                EditText firstnameEditText = findViewById(R.id.firstnameInputEditText);
+                EditText lastnameEditText = findViewById(R.id.lastnameInputEditText);
+                EditText usernameEditText = findViewById(R.id.usernameInputEditText);
+                EditText passwordEditText = findViewById(R.id.passwordInputEditText);
 
-                account.setFirstname("Joshua");
-                account.setLastname("Morris");
-                account.setUsername("jmorris1");
-                account.setPassword("password1");
+                Account account = new Account();
+                account.setFirstname(firstnameEditText.getText().toString());
+                account.setLastname(lastnameEditText.getText().toString());
+                account.setUsername(usernameEditText.getText().toString());
+                account.setPassword(passwordEditText.getText().toString());
                 account.setManager(true);
 
                 FirebaseApp.initializeApp(getApplicationContext());

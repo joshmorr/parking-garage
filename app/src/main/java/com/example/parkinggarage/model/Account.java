@@ -46,6 +46,10 @@ public class Account {
         this.passwordHash = password.hashCode();
     }
 
+    public int getPasswordHash() {
+        return passwordHash;
+    }
+
     public boolean isManager() {
         return isManager;
     }
