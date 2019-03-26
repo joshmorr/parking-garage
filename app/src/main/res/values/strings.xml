@@ -6,4 +6,11 @@
     <string name="login">Login</string>
     <string name="loginErrorMesssage">The username or password is incorrect. Try again.</string>
     <string name="title_activity_manager">ManagerActivity</string>
+    <string name="setUp">Set Up</string>
+    <string name="title_activity_set_up">SetUpActivity</string>
+    <string name="title_activity_manager_account_setup">ManagerAccountSetup</string>
+    <string name="manager_account_setup_title">Set Up Manager Account</string>
+    <string name="lastname">Last Name</string>
+    <string name="firstname">First Name</string>
+    <string name="next">Next</string>
 </resources>

@@ -1,35 +1,37 @@
 package com.example.parkinggarage.model;
 
 public class Account {
-    private String name;
+    private String firstname;
+    private String lastname;
     private String username;
-    private String password;
+    private int passwordHash;
     private boolean isManager;
 
-    public Account(boolean isManager) {
+    public Account() {
+    }
+
+    public Account(String firstname, String lastname, String username, String password, boolean isManager) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        passwordHash = password.hashCode();
         this.isManager = isManager;
     }
 
-    public Account(String name, String username, String password) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        isManager = false;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public Account(String name, String username, String password, boolean isManager) {
-        this.name = name;
-        this.username = username;
-        this.password = password;
-        this.isManager = isManager;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getName() {
-        return name;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getUsername() {
@@ -40,12 +42,8 @@ public class Account {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
-        this.password = password;
+        this.passwordHash = password.hashCode();
     }
 
     public boolean isManager() {

@@ -5,13 +5,12 @@ import java.util.HashMap;
 public class ParkingGarageSystem {
     private Garage garage;
     private PaymentScheme scheme;
-    private Accounts accounts;
+    private Accounts attendants;
     private double moneyMade;
 
     public ParkingGarageSystem() {
         garage = new Garage();
         scheme = new PaymentScheme();
-        accounts = new Accounts();
     }
 
     public void setUpSampleSystem() {
@@ -34,11 +33,19 @@ public class ParkingGarageSystem {
         this.scheme = scheme;
     }
 
-    public Accounts getAccounts() {
-        return accounts;
+    public Accounts getAttendants() {
+        return attendants;
     }
 
-    public void setAccounts(Accounts accounts) {
-        this.accounts = accounts;
+    public void setAttendants(Accounts attendants) {
+        this.attendants = attendants;
+    }
+
+    public double getMoneyMade() {
+        return moneyMade;
+    }
+
+    public void setMoneyMade(double moneyMade) {
+        this.moneyMade = moneyMade;
     }
 }

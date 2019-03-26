@@ -17,14 +17,17 @@ import android.widget.TextView;
 
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.Account;
+import com.example.parkinggarage.model.Garage;
 import com.example.parkinggarage.model.ParkingGarageSystem;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ParkingGarageSystem system = new ParkingGarageSystem();
-        system.getAccounts().addSampleAccounts();
+        FirebaseApp.initializeApp(getApplicationContext());
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -46,36 +49,26 @@ public class MainActivity extends AppCompatActivity {
 
         TextView loginStatusView = findViewById(R.id.loginErrorTextView);
 
-        final Button loginButton = findViewById(R.id.loginButton);
+        Button loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ParkingGarageSystem system = new ParkingGarageSystem();
-                system.getAccounts().addSampleAccounts();
 
-                TextInputEditText usernameField = findViewById(R.id.usernameInputEditText);
-                TextInputEditText passwordField = findViewById(R.id.passwordInputEditText);
+            }
+        });
 
-                TextView loginErrorLabel = findViewById(R.id.loginErrorTextView);
-
-                if (!system.getAccounts().attemptLogin(usernameField.getText().toString(), passwordField.getText().toString())) {
-                    loginErrorLabel.setVisibility(View.VISIBLE);
-                }
-                else {
-                    Account account = system.getAccounts().getAccountsMap().get(usernameField.getText().toString());
-                    if (account.isManager()) {
-                        Intent intent = new Intent(getApplicationContext(), ManagerActivity.class);
-                        startActivity(intent);
-                    }
-                }
-
+        Button setUpButton = findViewById(R.id.setUpButton);
+        setUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSetUpActivity();
             }
         });
     }
 
-    public void accessManagerAccount() {
-        Intent intent = new Intent(this, ManagerActivity.class);
-        startActivity(intent);
+    public void startSetUpActivity() {
+       Intent intent = new Intent(this, ManagerAccountSetupActivity.class);
+       startActivity(intent);
     }
 
     @Override
