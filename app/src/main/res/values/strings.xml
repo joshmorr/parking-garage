@@ -16,4 +16,7 @@
     <string name="title_activity_garage_setup">GarageSetupActivity</string>
     <string name="garage_setup_title">Garage Setup</string>
     <string name="garage_name">Garage Name</string>
+    <string name="failed_login_dialog_title">Unable to Login</string>
+    <string name="failed_login_dialog_message">The username or password is incorrect!</string>
+    <string name="ok">OK</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.parkinggarage.activities;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +20,7 @@ import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.Account;
 import com.example.parkinggarage.model.Garage;
 import com.example.parkinggarage.model.ParkingGarageSystem;
+import com.example.parkinggarage.ui.FailedLoginDialog;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -47,13 +49,14 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        TextView loginStatusView = findViewById(R.id.loginErrorTextView);
 
         Button loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                FailedLoginDialog fld = new FailedLoginDialog(MainActivity.this);
+                AlertDialog dialog = fld.getDialog();
+                dialog.show();
             }
         });
 
