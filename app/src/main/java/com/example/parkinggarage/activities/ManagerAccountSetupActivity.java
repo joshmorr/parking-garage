@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.Account;
@@ -28,6 +31,7 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        setEditorFocusChanges();
         Button nextButton = findViewById(R.id.nextButton);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,8 +63,38 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
                 });
             }
         });
+    }
 
+    public void setEditorFocusChanges() {
+        EditText firstnameEditText = findViewById(R.id.firstnameInputEditText);
+        firstnameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                TextInputEditText lastnameEditText = findViewById(R.id.lastnameInputEditText);
+                lastnameEditText.requestFocus();
+                return true;
+            }
+        });
 
+        EditText lastnameEditText = findViewById(R.id.lastnameInputEditText);
+        lastnameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                TextInputEditText usernameEditText = findViewById(R.id.usernameInputEditText);
+                usernameEditText.requestFocus();
+                return true;
+            }
+        });
+
+        EditText usernameEditText = findViewById(R.id.usernameInputEditText);
+        usernameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                TextInputEditText passwordEditText = findViewById(R.id.passwordInputEditText);
+                passwordEditText.requestFocus();
+                return true;
+            }
+        });
     }
 
 }
