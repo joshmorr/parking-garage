@@ -13,4 +13,7 @@
     <string name="lastname">Last Name</string>
     <string name="firstname">First Name</string>
     <string name="next">Next</string>
+    <string name="title_activity_garage_setup">GarageSetupActivity</string>
+    <string name="garage_setup_title">Garage Setup</string>
+    <string name="garage_name">Garage Name</string>
 </resources>
