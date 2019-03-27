@@ -18,6 +18,13 @@ public class Account {
         this.isManager = isManager;
     }
 
+    public boolean checkPasswordInput(String input) {
+        if (input.hashCode() == passwordHash) {
+            return true;
+        }
+        return false;
+    }
+
     public String getFirstname() {
         return firstname;
     }

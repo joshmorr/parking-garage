@@ -14,7 +14,6 @@ public class AccountsTest {
     public void setUp() {
         system = new ParkingGarageSystem();
         accounts = new Accounts();
-        accounts.addSampleAccounts();
     }
 
     @Test
