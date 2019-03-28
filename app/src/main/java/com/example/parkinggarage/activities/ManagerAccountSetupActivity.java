@@ -16,10 +16,14 @@ import android.widget.TextView;
 
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.Account;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class ManagerAccountSetupActivity extends AppCompatActivity {
     private static final String TAG = "ManagerAccountSetup";
@@ -53,12 +57,12 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
                 db.collection("accounts").document(account.getUsername()).set(account).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.i(TAG, "Success!");
+                        Log.i(TAG, "Document successfully added!");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Failure!");
+                        Log.w(TAG, "Error adding document", e);
                     }
                 });
             }

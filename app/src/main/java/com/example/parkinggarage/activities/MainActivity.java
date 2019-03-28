@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startSetUpActivity() {
-       Intent intent = new Intent(this, ManagerAccountSetupActivity.class);
+       Intent intent = new Intent(this, GarageSetupActivity.class);
        startActivity(intent);
     }
 

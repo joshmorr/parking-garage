@@ -9,7 +9,7 @@ public class ParkingGarageSystem {
     private double moneyMade;
 
     public ParkingGarageSystem() {
-        garage = new Garage();
+        garage = new Garage(1, 2);
         scheme = new PaymentScheme();
     }
 
