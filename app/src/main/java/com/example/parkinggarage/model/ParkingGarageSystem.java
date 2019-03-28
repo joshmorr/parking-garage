@@ -6,14 +6,14 @@ public class ParkingGarageSystem {
     private Garage garage;
     private PaymentScheme scheme;
     private Accounts attendants;
-    private double moneyMade;
 
     public ParkingGarageSystem() {
         garage = new Garage(1, 2);
         scheme = new PaymentScheme();
     }
 
-    public void setUpSampleSystem() {
+    public ParkingGarageSystem(Garage garage) {
+        this.garage = garage;
 
     }
 
@@ -41,11 +41,4 @@ public class ParkingGarageSystem {
         this.attendants = attendants;
     }
 
-    public double getMoneyMade() {
-        return moneyMade;
-    }
-
-    public void setMoneyMade(double moneyMade) {
-        this.moneyMade = moneyMade;
-    }
 }
