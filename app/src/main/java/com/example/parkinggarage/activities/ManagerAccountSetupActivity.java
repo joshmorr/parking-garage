@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -54,17 +55,18 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
 
                 FirebaseApp.initializeApp(getApplicationContext());
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("accounts").document(account.getUsername()).set(account).addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.collection("accounts").add(account).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.i(TAG, "Document successfully added!");
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Document successfully added!");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
+                        Log.d(TAG, "Error adding document", e);
                     }
                 });
+
             }
         });
     }
