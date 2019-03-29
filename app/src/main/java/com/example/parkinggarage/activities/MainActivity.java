@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
+import com.example.parkinggarage.firebase.Login;
 import com.example.parkinggarage.model.Account;
 import com.example.parkinggarage.model.Garage;
 import com.example.parkinggarage.model.ParkingGarageSystem;
@@ -36,7 +37,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static String TAG = "Main Activity";
+    private static String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,53 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 final String username = usernameField.getText().toString();
                 final String password = passwordField.getText().toString();
 
-                final CollectionReference cr = db.collection("accounts");
-
-                cr.whereEqualTo("username", username).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            if (task.getResult() == null) {
-                                FailedLoginDialog fld = new FailedLoginDialog(MainActivity.this);
-                                AlertDialog dialog = fld.getDialog();
-                                dialog.show();
-                                Log.d(TAG, "Task result is null");
-                            }
-                            else if (task.getResult().getDocuments() == null){
-                                FailedLoginDialog fld = new FailedLoginDialog(MainActivity.this);
-                                AlertDialog dialog = fld.getDialog();
-                                dialog.show();
-                                Log.d(TAG, "DocumentSnapshot list is null");
-                            }
-                            else if (task.getResult().getDocuments().size() == 0){
-                                FailedLoginDialog fld = new FailedLoginDialog(MainActivity.this);
-                                AlertDialog dialog = fld.getDialog();
-                                dialog.show();
-                                Log.d(TAG, "DocumentSnapshot list is has no elements");
-                            }
-                            else {
-                                Log.d(TAG, "Username exists!");
-                                DocumentSnapshot document = task.getResult().getDocuments().get(0);
-                                if (document.get("password").equals(password)) {
-                                    Log.d(TAG, "Password matches!");
-                                }
-                                else {
-                                    FailedLoginDialog fld = new FailedLoginDialog(MainActivity.this);
-                                    AlertDialog dialog = fld.getDialog();
-                                    dialog.show();
-                                    Log.d(TAG, "Password does not match");
-                                }
-
-                            }
-                        }
-                        else {
-                            FailedLoginDialog fld = new FailedLoginDialog(MainActivity.this);
-                            AlertDialog dialog = fld.getDialog();
-                            dialog.show();
-                            Log.d(TAG, "5");
-                        }
-                    }
-                });
+                Login login = new Login(db, MainActivity.this, username, password);
+                login.attemptLogin();
             }
         });
 
