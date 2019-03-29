@@ -41,9 +41,10 @@ public class GarageSetupActivity extends AppCompatActivity {
                 int nRows = Integer.valueOf(rowsEditText.getText().toString());
                 int nSpacesPerRow = Integer.valueOf(spacesEditText.getText().toString());
                 Garage garage = new Garage(nRows, nSpacesPerRow);
+                ParkingGarageSystem system = new ParkingGarageSystem(garage);
                 FirebaseApp.initializeApp(GarageSetupActivity.this);
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("garages").add(garage).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                db.collection("systems").add(system).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot successfully written!");

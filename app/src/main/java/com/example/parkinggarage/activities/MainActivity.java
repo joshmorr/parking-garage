@@ -3,12 +3,14 @@ package com.example.parkinggarage.activities;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Menu;
@@ -21,15 +23,25 @@ import com.example.parkinggarage.model.Account;
 import com.example.parkinggarage.model.Garage;
 import com.example.parkinggarage.model.ParkingGarageSystem;
 import com.example.parkinggarage.ui.FailedLoginDialog;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private static String TAG = "Main Activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseApp.initializeApp(getApplicationContext());
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -54,9 +66,59 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FailedLoginDialog fld = new FailedLoginDialog(MainActivity.this);
-                AlertDialog dialog = fld.getDialog();
-                dialog.show();
+                TextInputEditText usernameField = findViewById(R.id.usernameInputEditText);
+                TextInputEditText passwordField = findViewById(R.id.passwordInputEditText);
+
+                final String username = usernameField.getText().toString();
+                final String password = passwordField.getText().toString();
+
+                final CollectionReference cr = db.collection("accounts");
+
+                cr.whereEqualTo("username", username).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if (task.getResult() == null) {
+                                FailedLoginDialog fld = new FailedLoginDialog(MainActivity.this);
+                                AlertDialog dialog = fld.getDialog();
+                                dialog.show();
+                                Log.d(TAG, "Task result is null");
+                            }
+                            else if (task.getResult().getDocuments() == null){
+                                FailedLoginDialog fld = new FailedLoginDialog(MainActivity.this);
+                                AlertDialog dialog = fld.getDialog();
+                                dialog.show();
+                                Log.d(TAG, "DocumentSnapshot list is null");
+                            }
+                            else if (task.getResult().getDocuments().size() == 0){
+                                FailedLoginDialog fld = new FailedLoginDialog(MainActivity.this);
+                                AlertDialog dialog = fld.getDialog();
+                                dialog.show();
+                                Log.d(TAG, "DocumentSnapshot list is has no elements");
+                            }
+                            else {
+                                Log.d(TAG, "Username exists!");
+                                DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                                if (document.get("password").equals(password)) {
+                                    Log.d(TAG, "Password matches!");
+                                }
+                                else {
+                                    FailedLoginDialog fld = new FailedLoginDialog(MainActivity.this);
+                                    AlertDialog dialog = fld.getDialog();
+                                    dialog.show();
+                                    Log.d(TAG, "Password does not match");
+                                }
+
+                            }
+                        }
+                        else {
+                            FailedLoginDialog fld = new FailedLoginDialog(MainActivity.this);
+                            AlertDialog dialog = fld.getDialog();
+                            dialog.show();
+                            Log.d(TAG, "5");
+                        }
+                    }
+                });
             }
         });
 

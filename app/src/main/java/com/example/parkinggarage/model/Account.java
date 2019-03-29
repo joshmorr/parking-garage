@@ -4,7 +4,7 @@ public class Account {
     private String firstname;
     private String lastname;
     private String username;
-    private int passwordHash;
+    private String password;
     private boolean isManager;
 
     public Account() {
@@ -14,15 +14,8 @@ public class Account {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
-        passwordHash = password.hashCode();
+        this.password = password;
         this.isManager = isManager;
-    }
-
-    public boolean checkPasswordInput(String input) {
-        if (input.hashCode() == passwordHash) {
-            return true;
-        }
-        return false;
     }
 
     public String getFirstname() {
@@ -49,12 +42,12 @@ public class Account {
         this.username = username;
     }
 
-    public void setPassword(String password) {
-        this.passwordHash = password.hashCode();
+    public String getPassword() {
+        return password;
     }
 
-    public int getPasswordHash() {
-        return passwordHash;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public boolean isManager() {

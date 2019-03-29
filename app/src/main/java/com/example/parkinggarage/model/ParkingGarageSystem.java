@@ -14,6 +14,7 @@ public class ParkingGarageSystem {
 
     public ParkingGarageSystem(Garage garage) {
         this.garage = garage;
+        scheme = new PaymentScheme();
 
     }
 
