@@ -1,13 +1,6 @@
 package com.example.parkinggarage;
 
-import android.content.Context;
-
-import com.example.parkinggarage.activities.MainActivity;
-import com.example.parkinggarage.firebase.Login;
-import com.example.parkinggarage.model.Account;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.FirebaseFirestore;
-
+import com.example.parkinggarage.activities.ManagerAccountSetupActivity;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -17,32 +10,23 @@ import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @LargeTest
-public class MainActivityTest {
+public class ManagerAccountSetupActivityTest {
     private String str;
-    private Context context;
-    private FirebaseFirestore db;
-    private Login login;
+
 
     @Rule
-    public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<ManagerAccountSetupActivity> activityRule = new ActivityTestRule<>(ManagerAccountSetupActivity.class);
 
     @Before
     public void setup() {
         str = "Hello";
-    }
 
-    @Test
-    public void setupButton_opens_ManagerAccountSetupActivity_on_click() {
-        onView(withId(R.id.setupButton)).perform(click());
-        onView(withId(R.id.managerAccountSetupToolbar)).check(matches(isDisplayed()));
     }
 
     @Test
@@ -56,7 +40,5 @@ public class MainActivityTest {
         onView(withId(R.id.passwordEditText)).perform(typeText(str));
         onView(withId(R.id.passwordEditText)).check(matches(withText(str)));
     }
-
-
 
 }

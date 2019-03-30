@@ -110,7 +110,7 @@
             app:layout_constraintVertical_bias="0.477" />
 
         <Button
-            android:id="@+id/setUpButton"
+            android:id="@+id/setupButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
