@@ -23,6 +23,8 @@ import static androidx.test.espresso.action.ViewActions.pressKey;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasFocus;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.isSelected;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
@@ -38,47 +40,30 @@ public class MainActivityTest {
 
     @Before
     public void setup() {
-        str = "Hello darkness my old friend";
-        context = activityRule.getActivity().getApplicationContext();
-        FirebaseApp.initializeApp(context);
-        db = FirebaseFirestore.getInstance();
+        str = "Hello";
+//        context = activityRule.getActivity().getApplicationContext();
+//        FirebaseApp.initializeApp(context);
+//        db = FirebaseFirestore.getInstance();
     }
 
     @Test
-    public void usernameEditText_has_focus_on_click() {
-        onView(withId(R.id.usernameInputEditText)).perform(click());
-        onView(withId(R.id.usernameInputEditText)).check(matches(hasFocus()));
-    }
-
-    @Test
-    public void passwordEditText_has_focus_on_click() {
-        onView(withId(R.id.passwordInputEditText)).perform(click());
-        onView(withId(R.id.passwordInputEditText)).check(matches(hasFocus()));
-    }
-
-    @Test
-    public void change_focus_from_usernameEditText_to_PasswordEditText_on_editor_action() {
-        onView(withId(R.id.usernameInputEditText)).perform(click(), pressKey(KeyEvent.KEYCODE_ENTER));
-        //onView(hasFocus()).check(matches(withId(R.id.passwordInputEditText)));
+    public void setupButton_opens_ManagerAccountSetupActivity_on_click() {
+        onView(withId(R.id.setUpButton)).perform(click());
+        onView(withId(R.id.managerAccountSetupToolbar)).check(matches(isDisplayed()));
     }
 
     @Test
     public void changeTextUsername() {
-        onView(withId(R.id.usernameInputEditText)).perform(typeText(str));
-        onView(withId(R.id.usernameInputEditText)).check(matches(withText(str)));
+        onView(withId(R.id.usernameEditText)).perform(typeText(str));
+        onView(withId(R.id.usernameEditText)).check(matches(withText(str)));
     }
 
     @Test
     public void changeTextPassword() {
-        onView(withId(R.id.passwordInputEditText)).perform(typeText(str));
-        onView(withId(R.id.passwordInputEditText)).check(matches(withText(str)));
+        onView(withId(R.id.passwordEditText)).perform(typeText(str));
+        onView(withId(R.id.passwordEditText)).check(matches(withText(str)));
     }
 
-//    @Test
-//    public void loginCorrect() {
-//        onView(withId(R.id.usernameInputEditText)).perform(typeText("morrj1"));
-//        onView(withId(R.id.passwordInputEditText)).perform(typeText("password1"));
-//        onView(withId(R.id.loginButton)).perform(click());
-//    }
+
 
 }
