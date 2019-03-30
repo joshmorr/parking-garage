@@ -61,7 +61,7 @@
             app:layout_constraintVertical_bias="0.252">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/firstnameInputEditText"
+                android:id="@+id/firstnameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/firstname" />
@@ -85,7 +85,7 @@
             app:layout_constraintVertical_bias="0.459">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/lastnameInputEditText"
+                android:id="@+id/lastnameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lastname" />
@@ -109,7 +109,7 @@
             app:layout_constraintVertical_bias="0.381">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/usernameInputEditText"
+                android:id="@+id/usernameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/username" />
@@ -133,7 +133,7 @@
             app:layout_constraintVertical_bias="0.553">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/passwordInputEditText"
+                android:id="@+id/passwordEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/password"

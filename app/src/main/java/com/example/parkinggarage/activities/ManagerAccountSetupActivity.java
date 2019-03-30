@@ -41,10 +41,10 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText firstnameEditText = findViewById(R.id.firstnameInputEditText);
-                EditText lastnameEditText = findViewById(R.id.lastnameInputEditText);
-                EditText usernameEditText = findViewById(R.id.usernameInputEditText);
-                EditText passwordEditText = findViewById(R.id.passwordInputEditText);
+                EditText firstnameEditText = findViewById(R.id.firstnameEditText);
+                EditText lastnameEditText = findViewById(R.id.lastnameEditText);
+                EditText usernameEditText = findViewById(R.id.usernameEditText);
+                EditText passwordEditText = findViewById(R.id.passwordEditText);
 
                 Account account = new Account();
                 account.setFirstname(firstnameEditText.getText().toString());
@@ -72,31 +72,31 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
     }
 
     public void setEditorFocusChanges() {
-        EditText firstnameEditText = findViewById(R.id.firstnameInputEditText);
+        EditText firstnameEditText = findViewById(R.id.firstnameEditText);
         firstnameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                TextInputEditText lastnameEditText = findViewById(R.id.lastnameInputEditText);
+                TextInputEditText lastnameEditText = findViewById(R.id.lastnameEditText);
                 lastnameEditText.requestFocus();
                 return true;
             }
         });
 
-        EditText lastnameEditText = findViewById(R.id.lastnameInputEditText);
+        EditText lastnameEditText = findViewById(R.id.lastnameEditText);
         lastnameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                TextInputEditText usernameEditText = findViewById(R.id.usernameInputEditText);
+                TextInputEditText usernameEditText = findViewById(R.id.usernameEditText);
                 usernameEditText.requestFocus();
                 return true;
             }
         });
 
-        EditText usernameEditText = findViewById(R.id.usernameInputEditText);
+        EditText usernameEditText = findViewById(R.id.usernameEditText);
         usernameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                TextInputEditText passwordEditText = findViewById(R.id.passwordInputEditText);
+                TextInputEditText passwordEditText = findViewById(R.id.passwordEditText);
                 passwordEditText.requestFocus();
                 return true;
             }

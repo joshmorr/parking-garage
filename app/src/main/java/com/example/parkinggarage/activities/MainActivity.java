@@ -49,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TextInputEditText usernameField = findViewById(R.id.usernameInputEditText);
-        TextInputEditText passwordField = findViewById(R.id.passwordInputEditText);
+        TextInputEditText usernameField = findViewById(R.id.usernameEditText);
+        TextInputEditText passwordField = findViewById(R.id.passwordEditText);
 
         usernameField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                TextInputEditText passwordField = findViewById(R.id.passwordInputEditText);
+                TextInputEditText passwordField = findViewById(R.id.passwordEditText);
                 passwordField.requestFocus();
                 return true;
             }
@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextInputEditText usernameField = findViewById(R.id.usernameInputEditText);
-                TextInputEditText passwordField = findViewById(R.id.passwordInputEditText);
+                TextInputEditText usernameField = findViewById(R.id.usernameEditText);
+                TextInputEditText passwordField = findViewById(R.id.passwordEditText);
 
                 final String username = usernameField.getText().toString();
                 final String password = passwordField.getText().toString();
