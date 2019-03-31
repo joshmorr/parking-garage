@@ -2,8 +2,6 @@ package com.example.parkinggarage.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,16 +13,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
+import com.example.parkinggarage.firebase.AddAccount;
 import com.example.parkinggarage.model.Account;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 public class ManagerAccountSetupActivity extends AppCompatActivity {
     private static final String TAG = "ManagerAccountSetup";
@@ -41,6 +36,9 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseApp.initializeApp(getApplicationContext());
+                FirebaseFirestore database = FirebaseFirestore.getInstance();
+
                 EditText firstnameEditText = findViewById(R.id.firstnameEditText);
                 EditText lastnameEditText = findViewById(R.id.lastnameEditText);
                 EditText usernameEditText = findViewById(R.id.usernameEditText);
@@ -53,9 +51,9 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
                 account.setPassword(passwordEditText.getText().toString());
                 account.setManager(true);
 
-                FirebaseApp.initializeApp(getApplicationContext());
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("accounts").add(account).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                AddAccount addManagerAccount = new AddAccount(database, ManagerAccountSetupActivity.this, account, TAG);
+
+                database.collection("accounts").add(account).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "Document successfully added!");
