@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseApp.initializeApp(getApplicationContext());
-        final FirebaseFirestore db = FirebaseFirestore.getInstance();
+        final FirebaseFirestore database = FirebaseFirestore.getInstance();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 final String username = usernameField.getText().toString();
                 final String password = passwordField.getText().toString();
 
-                Login login = new Login(db, MainActivity.this, username, password);
+                Login login = new Login(database, MainActivity.this, username, password);
                 login.attemptLogin();
             }
         });

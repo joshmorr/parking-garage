@@ -13,41 +13,38 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class Login {
-    private FirebaseFirestore db;
-    private Context context;
+public class Login extends FirebaseConnection {
     private String username;
     private String password;
     private static final String TAG = "MainActivity";
 
-    public Login(FirebaseFirestore db, Context context, String username, String password) {
-        this.db = db;
-        this.context = context;
+    public Login(FirebaseFirestore database, Context context, String username, String password) {
+        super(database, context);
         this.username = username;
         this.password = password;
     }
 
     public void attemptLogin() {
-        final CollectionReference cr = db.collection("accounts");
+        final CollectionReference cr = getDatabase().collection("accounts");
 
         cr.whereEqualTo("username", username).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     if (task.getResult() == null) {
-                        FailedLoginDialog fld = new FailedLoginDialog(context);
+                        FailedLoginDialog fld = new FailedLoginDialog(getContext());
                         AlertDialog dialog = fld.getDialog();
                         dialog.show();
                         Log.d(TAG, "Task result is null");
                     }
                     else if (task.getResult().getDocuments() == null){
-                        FailedLoginDialog fld = new FailedLoginDialog(context);
+                        FailedLoginDialog fld = new FailedLoginDialog(getContext());
                         AlertDialog dialog = fld.getDialog();
                         dialog.show();
                         Log.d(TAG, "DocumentSnapshot list is null");
                     }
                     else if (task.getResult().getDocuments().size() == 0){
-                        FailedLoginDialog fld = new FailedLoginDialog(context);
+                        FailedLoginDialog fld = new FailedLoginDialog(getContext());
                         AlertDialog dialog = fld.getDialog();
                         dialog.show();
                         Log.d(TAG, "DocumentSnapshot list is has no elements");
@@ -59,7 +56,7 @@ public class Login {
                             Log.d(TAG, "Password matches!");
                         }
                         else {
-                            FailedLoginDialog fld = new FailedLoginDialog(context);
+                            FailedLoginDialog fld = new FailedLoginDialog(getContext());
                             AlertDialog dialog = fld.getDialog();
                             dialog.show();
                             Log.d(TAG, "Password does not match");
@@ -68,7 +65,7 @@ public class Login {
                     }
                 }
                 else {
-                    FailedLoginDialog fld = new FailedLoginDialog(context);
+                    FailedLoginDialog fld = new FailedLoginDialog(getContext());
                     AlertDialog dialog = fld.getDialog();
                     dialog.show();
                     Log.d(TAG, "5");
