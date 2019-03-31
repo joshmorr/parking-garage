@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.example.parkinggarage.model.Account;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -21,7 +23,17 @@ public class AddAccount extends FirebaseConnection {
         this.tag = tag;
     }
 
-    private void addAccountToFirebase() {
-
+    public void addToFirebase() {
+        getDatabase().collection("accounts").add(account).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.d(tag, "Document successfully added!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(tag, "Error adding document", e);
+            }
+        });
     }
 }

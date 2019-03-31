@@ -53,17 +53,7 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
 
                 AddAccount addManagerAccount = new AddAccount(database, ManagerAccountSetupActivity.this, account, TAG);
 
-                database.collection("accounts").add(account).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "Document successfully added!");
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG, "Error adding document", e);
-                    }
-                });
+
 
             }
         });

@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.ImageView;
 
-import com.example.parkinggarage.ui.FailedLoginDialog;
+import com.example.parkinggarage.R;
+import com.example.parkinggarage.ui.CustomDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -26,26 +28,23 @@ public class Login extends FirebaseConnection {
 
     public void attemptLogin() {
         final CollectionReference cr = getDatabase().collection("accounts");
-
+        ImageView view = new ImageView(getContext());
+        view.setImageResource(R.drawable.gandalf);
+        CustomDialog cd = new CustomDialog(getContext(), getContext().getString(R.string.failed_login_dialog_title),  getContext().getString(R.string.failed_login_dialog_message), view);
+        final AlertDialog dialog = cd.getBuilder().create();
         cr.whereEqualTo("username", username).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     if (task.getResult() == null) {
-                        FailedLoginDialog fld = new FailedLoginDialog(getContext());
-                        AlertDialog dialog = fld.getDialog();
                         dialog.show();
                         Log.d(TAG, "Task result is null");
                     }
                     else if (task.getResult().getDocuments() == null){
-                        FailedLoginDialog fld = new FailedLoginDialog(getContext());
-                        AlertDialog dialog = fld.getDialog();
                         dialog.show();
                         Log.d(TAG, "DocumentSnapshot list is null");
                     }
                     else if (task.getResult().getDocuments().size() == 0){
-                        FailedLoginDialog fld = new FailedLoginDialog(getContext());
-                        AlertDialog dialog = fld.getDialog();
                         dialog.show();
                         Log.d(TAG, "DocumentSnapshot list is has no elements");
                     }
@@ -56,8 +55,6 @@ public class Login extends FirebaseConnection {
                             Log.d(TAG, "Password matches!");
                         }
                         else {
-                            FailedLoginDialog fld = new FailedLoginDialog(getContext());
-                            AlertDialog dialog = fld.getDialog();
                             dialog.show();
                             Log.d(TAG, "Password does not match");
                         }
@@ -65,10 +62,8 @@ public class Login extends FirebaseConnection {
                     }
                 }
                 else {
-                    FailedLoginDialog fld = new FailedLoginDialog(getContext());
-                    AlertDialog dialog = fld.getDialog();
                     dialog.show();
-                    Log.d(TAG, "5");
+                    Log.d(TAG, "Could not complete task!");
                 }
             }
         });

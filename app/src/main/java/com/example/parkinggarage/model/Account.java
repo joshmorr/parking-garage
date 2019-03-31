@@ -41,6 +41,22 @@ public class Account implements Parcelable {
         }
     };
 
+    public boolean fieldAreFilled() {
+        if (firstname == null || firstname.isEmpty()) {
+            return false;
+        }
+        if (lastname == null || lastname.isEmpty()) {
+            return false;
+        }
+        if (username == null || username.isEmpty()) {
+            return false;
+        }
+        if (password == null || password.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
     public String getFirstname() {
         return firstname;
     }
