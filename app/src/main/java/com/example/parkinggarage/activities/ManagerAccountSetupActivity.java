@@ -29,16 +29,15 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
 
         setEditorFocusChanges();
         Button nextButton = findViewById(R.id.nextButton);
-                nextButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        FirebaseApp.initializeApp(getApplicationContext());
-                        FirebaseFirestore database = FirebaseFirestore.getInstance();
-
-                        EditText firstnameEditText = findViewById(R.id.firstnameEditText);
-                        EditText lastnameEditText = findViewById(R.id.lastnameEditText);
-                        EditText usernameEditText = findViewById(R.id.usernameEditText);
-                        EditText passwordEditText = findViewById(R.id.passwordEditText);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseApp.initializeApp(getApplicationContext());
+                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                EditText firstnameEditText = findViewById(R.id.firstnameEditText);
+                EditText lastnameEditText = findViewById(R.id.lastnameEditText);
+                EditText usernameEditText = findViewById(R.id.usernameEditText);
+                EditText passwordEditText = findViewById(R.id.passwordEditText);
 
                 Account account = new Account.Builder()
                         .setFirstname(firstnameEditText.getText().toString())
@@ -50,7 +49,6 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
 
                 AccountAdder adder = new AccountAdder(database, ManagerAccountSetupActivity.this, account, TAG);
                 adder.addToFirebase();
-
             }
         });
     }

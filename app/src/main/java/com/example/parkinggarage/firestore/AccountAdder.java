@@ -32,4 +32,5 @@ public class AccountAdder extends FirestoreConnection {
             }
         });
     }
+
 }
