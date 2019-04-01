@@ -19,21 +19,4 @@ public class AccountTest {
         account.setPassword(password);
     }
 
-    @Test
-    public void setPasswordHashTest() {
-        assertEquals(account.getPasswordHash(), password.hashCode());
-    }
-
-    @Test
-    public void checkPasswordInputCorrectTest() {
-        assertTrue(account.checkPasswordInput(password));
-    }
-
-    @Test
-    public void checkPasswordInputIncorrectTest() {
-        incorrectInput = "password2";
-        assertFalse(account.checkPasswordInput(incorrectInput));
-
-    }
-
 }

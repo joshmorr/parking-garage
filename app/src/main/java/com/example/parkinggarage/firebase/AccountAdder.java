@@ -9,21 +9,23 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
-public class AddAccount extends FirebaseConnection {
+public class AccountAdder extends FirebaseConnection {
     private Account account;
     private String tag;
 
-    public AddAccount(FirebaseFirestore database, Context context, Account account, String tag) {
+    public AccountAdder(FirebaseFirestore database, Context context, Account account, String tag) {
         super(database, context);
         this.account = account;
         this.tag = tag;
     }
 
-    public void addToFirebase() {
+    public void addToFirebase(){
         getDatabase().collection("accounts").document(account.getUsername()).set(account).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

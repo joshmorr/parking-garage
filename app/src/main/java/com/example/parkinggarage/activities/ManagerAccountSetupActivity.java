@@ -1,11 +1,10 @@
 package com.example.parkinggarage.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -13,12 +12,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
-import com.example.parkinggarage.firebase.AddAccount;
+import com.example.parkinggarage.firebase.AccountAdder;
 import com.example.parkinggarage.model.Account;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.parkinggarage.model.Garage;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ManagerAccountSetupActivity extends AppCompatActivity {
@@ -44,19 +41,24 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
                 EditText usernameEditText = findViewById(R.id.usernameEditText);
                 EditText passwordEditText = findViewById(R.id.passwordEditText);
 
-                Account account = new Account();
-                account.setFirstname(firstnameEditText.getText().toString());
-                account.setLastname(lastnameEditText.getText().toString());
-                account.setUsername(usernameEditText.getText().toString());
-                account.setPassword(passwordEditText.getText().toString());
-                account.setManager(true);
+                Account account = new Account.Builder()
+                        .setFirstname(firstnameEditText.getText().toString())
+                        .setLastname(lastnameEditText.getText().toString())
+                        .setUsername(usernameEditText.getText().toString())
+                        .setPassword((passwordEditText.getText().toString()))
+                        .setIsManager(true)
+                        .create();
 
-                AddAccount addAccount = new AddAccount(database, ManagerAccountSetupActivity.this, account, TAG);
-                addAccount.addToFirebase();
-
+                AccountAdder adder = new AccountAdder(database, ManagerAccountSetupActivity.this, account, TAG);
+                adder.addToFirebase();
 
             }
         });
+    }
+
+    public void startGarageSetUpActivity() {
+        Intent intent = new Intent(this, GarageSetupActivity.class);
+        startActivity(intent);
     }
 
     public void setEditorFocusChanges() {

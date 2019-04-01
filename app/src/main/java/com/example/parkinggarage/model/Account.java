@@ -13,12 +13,12 @@ public class Account implements Parcelable {
     public Account() {
     }
 
-    public Account(String firstname, String lastname, String username, String password, boolean isManager) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.username = username;
-        this.password = password;
-        this.isManager = isManager;
+    public Account(final Builder builder) {
+        firstname = builder.firstname;
+        lastname = builder.lastname;
+        username = builder.username;
+        password = builder.password;
+        isManager = builder.isManager;
     }
 
     protected Account(Parcel in) {
@@ -40,6 +40,20 @@ public class Account implements Parcelable {
             return new Account[size];
         }
     };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(firstname);
+        dest.writeString(lastname);
+        dest.writeString(username);
+        dest.writeString(password);
+        dest.writeByte((byte) (isManager ? 1 : 0));
+    }
 
     public boolean fieldAreFilled() {
         if (firstname == null || firstname.isEmpty()) {
@@ -93,21 +107,44 @@ public class Account implements Parcelable {
         return isManager;
     }
 
-    public void setManager(boolean manager) {
+    public void setIsManager(boolean manager) {
         isManager = manager;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
+    public static class Builder {
+        private String firstname;
+        private String lastname;
+        private String username;
+        private String password;
+        private boolean isManager;
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(firstname);
-        dest.writeString(lastname);
-        dest.writeString(username);
-        dest.writeString(password);
-        dest.writeByte((byte) (isManager ? 1 : 0));
+        public Builder setFirstname(String firstname) {
+            this.firstname = firstname;
+            return this;
+        }
+
+        public Builder setLastname(String lastname) {
+            this.lastname = lastname;
+            return this;
+        }
+
+        public Builder setUsername(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public Builder setPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder setIsManager(boolean manager) {
+            isManager = manager;
+            return this;
+        }
+
+        public Account create() {
+            return new Account(this);
+        }
     }
 }

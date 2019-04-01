@@ -8,6 +8,78 @@
     tools:context=".activities.GarageSetupActivity"
     tools:showIn="@layout/activity_garage_setup">
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/trucksInputLayout"
+        android:layout_width="114dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.597">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/trucksEditTExt"
+            android:layout_width="254dp"
+            android:layout_height="wrap_content"
+            android:hint="Trucks" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/carsInputLayout"
+        android:layout_width="114dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.464">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/carsEditText"
+            android:layout_width="254dp"
+            android:layout_height="wrap_content"
+            android:hint="Cars" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/motorcyclesInputLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.453"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.339">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/motorcyclesEditText"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:hint="Motorcycles" />
+    </android.support.design.widget.TextInputLayout>
+
     <Button
         android:id="@+id/finishButton"
         android:layout_width="match_parent"
@@ -40,15 +112,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/rowsInputLayout"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.268">
+        app:layout_constraintVertical_bias="0.189">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/spacesEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/spaces_per_row"
-            android:inputType="number"
-            android:text="1" />
+            android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -66,7 +137,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117">
+        app:layout_constraintVertical_bias="0.036">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/garagenameEditText"
@@ -89,15 +160,14 @@
         app:layout_constraintEnd_toStartOf="@+id/spacesInputLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.268">
+        app:layout_constraintVertical_bias="0.189">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/rowsEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/n_rows"
-            android:inputType="number"
-            android:text="1" />
+            android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
 
     <TextView
@@ -115,10 +185,9 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.341"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.381" />
+        app:layout_constraintVertical_bias="0.892" />
 
     <TextView
         android:id="@+id/spacesView"
@@ -134,9 +203,9 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintHorizontal_bias="0.678"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.381" />
+        app:layout_constraintVertical_bias="0.892" />
 
 </android.support.constraint.ConstraintLayout>
