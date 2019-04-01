@@ -3,9 +3,7 @@ package com.example.parkinggarage;
 import android.content.Context;
 
 import com.example.parkinggarage.activities.MainActivity;
-import com.example.parkinggarage.firebase.Login;
-import com.example.parkinggarage.model.Account;
-import com.google.firebase.FirebaseApp;
+import com.example.parkinggarage.firestore.Login;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 

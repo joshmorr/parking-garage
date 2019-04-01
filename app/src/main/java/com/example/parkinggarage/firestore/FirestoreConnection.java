@@ -1,14 +1,14 @@
-package com.example.parkinggarage.firebase;
+package com.example.parkinggarage.firestore;
 
 import android.content.Context;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public abstract class FirebaseConnection {
+public abstract class FirestoreConnection {
     private FirebaseFirestore database;
     private Context context;
 
-    public FirebaseConnection(FirebaseFirestore database, Context context) {
+    public FirestoreConnection(FirebaseFirestore database, Context context) {
         this.database = database;
         this.context = context;
     }

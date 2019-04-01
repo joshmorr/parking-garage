@@ -12,9 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
-import com.example.parkinggarage.firebase.AccountAdder;
+import com.example.parkinggarage.firestore.AccountAdder;
 import com.example.parkinggarage.model.Account;
-import com.example.parkinggarage.model.Garage;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -30,16 +29,16 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
 
         setEditorFocusChanges();
         Button nextButton = findViewById(R.id.nextButton);
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseApp.initializeApp(getApplicationContext());
-                FirebaseFirestore database = FirebaseFirestore.getInstance();
+                nextButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FirebaseApp.initializeApp(getApplicationContext());
+                        FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-                EditText firstnameEditText = findViewById(R.id.firstnameEditText);
-                EditText lastnameEditText = findViewById(R.id.lastnameEditText);
-                EditText usernameEditText = findViewById(R.id.usernameEditText);
-                EditText passwordEditText = findViewById(R.id.passwordEditText);
+                        EditText firstnameEditText = findViewById(R.id.firstnameEditText);
+                        EditText lastnameEditText = findViewById(R.id.lastnameEditText);
+                        EditText usernameEditText = findViewById(R.id.usernameEditText);
+                        EditText passwordEditText = findViewById(R.id.passwordEditText);
 
                 Account account = new Account.Builder()
                         .setFirstname(firstnameEditText.getText().toString())

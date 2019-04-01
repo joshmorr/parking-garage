@@ -1,12 +1,14 @@
-package com.example.parkinggarage.firebase;
+package com.example.parkinggarage.firestore;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
 
 import com.example.parkinggarage.R;
+import com.example.parkinggarage.activities.ManagerActivity;
 import com.example.parkinggarage.ui.CustomDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -15,7 +17,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-public class Login extends FirebaseConnection {
+public class Login extends FirestoreConnection {
     private String username;
     private String password;
     private static final String TAG = "MainActivity";
@@ -24,7 +26,7 @@ public class Login extends FirebaseConnection {
         super(database, context);
         this.username = username;
         this.password = password;
-    }
+}
 
     public void attemptLogin() {
         final CollectionReference cr = getDatabase().collection("accounts");
@@ -53,6 +55,11 @@ public class Login extends FirebaseConnection {
                         DocumentSnapshot document = task.getResult().getDocuments().get(0);
                         if (document.get("password").equals(password)) {
                             Log.d(TAG, "Password matches!");
+                            if (document.get("isManager").equals(true)) {
+                                Intent intent = new Intent(getContext(), ManagerActivity.class);
+
+                            }
+
                         }
                         else {
                             dialog.show();
