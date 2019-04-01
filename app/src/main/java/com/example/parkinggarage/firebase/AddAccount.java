@@ -24,9 +24,9 @@ public class AddAccount extends FirebaseConnection {
     }
 
     public void addToFirebase() {
-        getDatabase().collection("accounts").add(account).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        getDatabase().collection("accounts").document(account.getUsername()).set(account).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
+            public void onSuccess(Void aVoid) {
                 Log.d(tag, "Document successfully added!");
             }
         }).addOnFailureListener(new OnFailureListener() {

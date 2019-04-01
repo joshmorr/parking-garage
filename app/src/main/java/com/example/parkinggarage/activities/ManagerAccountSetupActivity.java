@@ -51,8 +51,8 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
                 account.setPassword(passwordEditText.getText().toString());
                 account.setManager(true);
 
-                AddAccount addManagerAccount = new AddAccount(database, ManagerAccountSetupActivity.this, account, TAG);
-
+                AddAccount addAccount = new AddAccount(database, ManagerAccountSetupActivity.this, account, TAG);
+                addAccount.addToFirebase();
 
 
             }
