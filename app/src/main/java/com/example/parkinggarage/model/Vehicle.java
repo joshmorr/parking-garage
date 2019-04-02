@@ -1,20 +1,20 @@
 package com.example.parkinggarage.model;
 
-public class Vehicle {
-    private Type type;
+class Vehicle {
+    private Category category;
     private String plateNumber;
 
-    public Vehicle(Type type, String plateNumber) {
-        this.type = type;
+    public Vehicle(Category category, String plateNumber) {
+        this.category = category;
         this.plateNumber = plateNumber;
     }
 
-    public Type getType() {
-        return type;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getPlateNumber() {

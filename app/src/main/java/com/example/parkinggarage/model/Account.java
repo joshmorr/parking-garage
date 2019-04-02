@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Account implements Parcelable {
+    private Employee employee;
     private String firstname;
     private String lastname;
     private String username;
@@ -11,6 +12,19 @@ public class Account implements Parcelable {
     private boolean isManager;
 
     public Account() {
+    }
+
+    public Account(Employee employee, String username, String password) {
+        this.employee = employee;
+        this.username = username;
+        this.password = password;
+    }
+
+    public Account(Employee employee, String username, String password, boolean isManager) {
+        this.employee = employee;
+        this.username = username;
+        this.password = password;
+        this.isManager = isManager;
     }
 
     public Account(final Builder builder) {

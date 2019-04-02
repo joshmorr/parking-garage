@@ -1,21 +1,36 @@
 package com.example.parkinggarage.model;
 
 public class Space {
-    private Type type;
+    private Category category;
+    private Vehicle vehicle;
 
     public Space() {
-        type = null;
+        category = null;
+        vehicle = null;
     }
 
-    public Space(Type type) {
-        this.type = type;
+    public Space(Category category) {
+        this.category = category;
+        vehicle = null;
     }
 
-    public Type getType() {
-        return type;
+    public boolean isEmpty() {
+        return vehicle == null;
     }
 
-    public void setType(Type type) {
-        this.type = type;
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 }

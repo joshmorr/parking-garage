@@ -19,7 +19,7 @@ public class AccountAdder extends FirestoreConnection {
         this.tag = tag;
 }
 
-    public void addToFirebase(){
+    public void addToFirestore(){
         getDatabase().collection("accounts").document(account.getUsername()).set(account).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -29,6 +29,20 @@ public class AccountAdder extends FirestoreConnection {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d(tag, "Error adding document", e);
+            }
+        });
+    }
+
+    public static void add(Account account, FirebaseFirestore database) {
+        database.collection("accounts").document(account.getUsername()).set(account).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                //Log.d(tag, "Document successfully added!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+               // Log.d(tag, "Error adding document", e);
             }
         });
     }

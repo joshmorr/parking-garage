@@ -48,7 +48,6 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
                         .create();
 
                 AccountAdder adder = new AccountAdder(database, ManagerAccountSetupActivity.this, account, TAG);
-                adder.addToFirebase();
             }
         });
     }
