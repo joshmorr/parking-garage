@@ -3,11 +3,9 @@ package com.example.parkinggarage.activities;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,18 +16,12 @@ import android.widget.TextView;
 
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.Account;
+import com.example.parkinggarage.presenter.MainActivityPresenter;
 import com.example.parkinggarage.ui.CustomDialog;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.Map;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainActivityPresenter.View {
     private static String TAG = "MainActivity";
 
     @Override
@@ -42,9 +34,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        TextInputEditText usernameField = findViewById(R.id.usernameEditText);
-        TextInputEditText passwordField = findViewById(R.id.passwordEditText);
+        MainActivityPresenter presenter = new MainActivityPresenter(this);
 
+        TextInputEditText usernameField = findViewById(R.id.usernameEditText);
         usernameField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -55,8 +47,22 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
         Button loginButton = findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TextInputEditText usernameField = findViewById(R.id.usernameEditText);
+                TextInputEditText passwordField = findViewById(R.id.passwordEditText);
+
+                String username = usernameField.getText().toString();
+                String password = passwordField.getText().toString();
+
+
+            }
+        });
+
+
+       /* Button loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
+        }); */
         Button setUpButton = findViewById(R.id.setupButton);
         setUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startSetUpActivity() {
-       Intent intent = new Intent(this, ManagerAccountSetupActivity.class);
+       Intent intent = new Intent(this, ManagerSetupActivity.class);
        startActivity(intent);
     }
 
@@ -159,5 +165,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void showFailedLoginDialog() {
+        ImageView view = new ImageView(MainActivity.this);
+        view.setImageResource(R.drawable.gandalf);
+        CustomDialog cd = new CustomDialog(MainActivity.this, getString(R.string.failed_login_dialog_title),  getString(R.string.failed_login_dialog_message), view);
+        cd.getBuilder().create().show();
     }
 }

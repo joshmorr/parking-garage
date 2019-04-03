@@ -1,11 +1,8 @@
 package com.example.parkinggarage;
 
-import com.example.parkinggarage.activities.ManagerAccountSetupActivity;
+import com.example.parkinggarage.activities.ManagerSetupActivity;
 import com.example.parkinggarage.model.Account;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.junit.Before;
@@ -23,13 +20,13 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @LargeTest
-public class ManagerAccountSetupActivityTest {
+public class ManagerSetupActivityTest {
     private FirebaseFirestore database;
     private String str;
     Account account;
 
     @Rule
-    public ActivityTestRule<ManagerAccountSetupActivity> activityRule = new ActivityTestRule<>(ManagerAccountSetupActivity.class);
+    public ActivityTestRule<ManagerSetupActivity> activityRule = new ActivityTestRule<>(ManagerSetupActivity.class);
 
     @Before
     public void setup() {

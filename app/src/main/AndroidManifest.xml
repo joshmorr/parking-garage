@@ -14,7 +14,7 @@
             android:label="@string/title_activity_garage_setup"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".activities.ManagerAccountSetupActivity"
+            android:name=".activities.ManagerSetupActivity"
             android:label="@string/title_activity_manager_account_setup"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

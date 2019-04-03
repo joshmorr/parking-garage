@@ -17,7 +17,7 @@ import com.example.parkinggarage.model.Account;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class ManagerAccountSetupActivity extends AppCompatActivity {
+public class ManagerSetupActivity extends AppCompatActivity {
     private static final String TAG = "ManagerAccountSetup";
 
     @Override
@@ -47,7 +47,7 @@ public class ManagerAccountSetupActivity extends AppCompatActivity {
                         .setIsManager(true)
                         .create();
 
-                AccountAdder adder = new AccountAdder(database, ManagerAccountSetupActivity.this, account, TAG);
+                AccountAdder adder = new AccountAdder(database, ManagerSetupActivity.this, account, TAG);
             }
         });
     }
