@@ -1,11 +1,14 @@
 package com.example.parkinggarage.presenter;
 
+import android.content.Context;
+
 import com.example.parkinggarage.model.Manager;
 
-public class ManagerSetupActivityPresenter {
+public class ManagerSetupActivityPresenter extends Presenter {
     private View view;
 
-    public ManagerSetupActivityPresenter(View view) {
+    public ManagerSetupActivityPresenter(Context context, View view) {
+        super(context);
         this.view = view;
     }
 

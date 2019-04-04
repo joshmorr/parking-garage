@@ -1,4 +1,4 @@
-package com.example.parkinggarage.activities;
+package com.example.parkinggarage.view;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

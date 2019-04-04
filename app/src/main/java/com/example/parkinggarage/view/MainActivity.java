@@ -1,6 +1,5 @@
-package com.example.parkinggarage.activities;
+package com.example.parkinggarage.view;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -17,9 +16,7 @@ import android.widget.TextView;
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.Account;
 import com.example.parkinggarage.presenter.MainActivityPresenter;
-import com.example.parkinggarage.ui.CustomDialog;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity implements MainActivityPresenter.View {
     private static String TAG = "MainActivity";
@@ -27,14 +24,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseApp.initializeApp(getApplicationContext());
-        final FirebaseFirestore database = FirebaseFirestore.getInstance();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        MainActivityPresenter presenter = new MainActivityPresenter(this);
+        final MainActivityPresenter presenter = new MainActivityPresenter(MainActivity.this, this);
 
         TextInputEditText usernameField = findViewById(R.id.usernameEditText);
         usernameField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -54,9 +50,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
                 TextInputEditText usernameField = findViewById(R.id.usernameEditText);
                 TextInputEditText passwordField = findViewById(R.id.passwordEditText);
 
-                String username = usernameField.getText().toString();
-                String password = passwordField.getText().toString();
-
+                presenter.login(usernameField.getText().toString(), passwordField.getText().toString());
 
             }
         });

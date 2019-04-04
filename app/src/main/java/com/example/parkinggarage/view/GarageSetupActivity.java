@@ -1,21 +1,13 @@
-package com.example.parkinggarage.activities;
+package com.example.parkinggarage.view;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.parkinggarage.R;
-import com.example.parkinggarage.model.GarageSystem;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class GarageSetupActivity extends AppCompatActivity {
     static final String TAG = "GarageSetupActivity";

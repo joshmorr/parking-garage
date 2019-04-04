@@ -1,4 +1,4 @@
-package com.example.parkinggarage.firestore;
+package com.example.parkinggarage.database;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -12,10 +12,6 @@ public class Login {
         database = FirebaseFirestore.getInstance();
         this.username = username;
         this.password = password;
-    }
-
-    public static void attemptLogin(String usernameInput, String passwordInput) {
-
     }
 
     public void attemptLogin() {

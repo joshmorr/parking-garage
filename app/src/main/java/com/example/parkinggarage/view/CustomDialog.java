@@ -1,4 +1,4 @@
-package com.example.parkinggarage.ui;
+package com.example.parkinggarage.view;
 
 import android.app.AlertDialog;
 import android.content.Context;

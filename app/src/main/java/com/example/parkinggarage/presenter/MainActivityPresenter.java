@@ -1,13 +1,18 @@
 package com.example.parkinggarage.presenter;
 
-public class MainActivityPresenter {
+import android.content.Context;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+
+public class MainActivityPresenter extends Presenter {
     private View view;
 
-    public MainActivityPresenter(View view) {
+    public MainActivityPresenter(Context context, View view) {
+        super(context);
         this.view = view;
     }
 
-    public void login(String username, String password) {
+    public void login(String usernameInput, String passwordInput) {
 
     }
 

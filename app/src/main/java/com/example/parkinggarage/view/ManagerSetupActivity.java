@@ -1,4 +1,4 @@
-package com.example.parkinggarage.activities;
+package com.example.parkinggarage.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
-import com.example.parkinggarage.firestore.AccountAdder;
-import com.example.parkinggarage.model.Account;
+import com.example.parkinggarage.presenter.ManagerSetupActivityPresenter;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class ManagerSetupActivity extends AppCompatActivity {
+public class ManagerSetupActivity extends AppCompatActivity implements ManagerSetupActivityPresenter.View {
     private static final String TAG = "ManagerAccountSetup";
 
     @Override
@@ -26,6 +25,8 @@ public class ManagerSetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manager_account_setup);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ManagerSetupActivityPresenter presenter = new ManagerSetupActivityPresenter(ManagerSetupActivity.this, this);
 
         setEditorFocusChanges();
         Button nextButton = findViewById(R.id.nextButton);
@@ -39,15 +40,10 @@ public class ManagerSetupActivity extends AppCompatActivity {
                 EditText usernameEditText = findViewById(R.id.usernameEditText);
                 EditText passwordEditText = findViewById(R.id.passwordEditText);
 
-                Account account = new Account.Builder()
-                        .setFirstname(firstnameEditText.getText().toString())
-                        .setLastname(lastnameEditText.getText().toString())
-                        .setUsername(usernameEditText.getText().toString())
-                        .setPassword((passwordEditText.getText().toString()))
-                        .setIsManager(true)
-                        .create();
-
-                AccountAdder adder = new AccountAdder(database, ManagerSetupActivity.this, account, TAG);
+                String firstname = firstnameEditText.toString();
+                String lastname = lastnameEditText.toString();
+                String username = usernameEditText.toString();
+                String password = passwordEditText.toString();
             }
         });
     }
@@ -89,4 +85,8 @@ public class ManagerSetupActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void showFailedAddManagerDialog() {
+
+    }
 }
