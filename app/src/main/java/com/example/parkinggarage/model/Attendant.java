@@ -4,11 +4,7 @@ import android.annotation.TargetApi;
 
 import java.time.Instant;
 
-public class Attendant extends Employee {
-
-    public Attendant(String firstname, String lastname, String username, String password) {
-        super(firstname, lastname, username, password);
-    }
+public class Attendant {
 
     @TargetApi(26)
     public void park(Customer customer) {

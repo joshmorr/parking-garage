@@ -1,5 +1,6 @@
 package com.example.parkinggarage;
 
+import com.example.parkinggarage.model.Employee;
 import com.example.parkinggarage.view.ManagerSetupActivity;
 import com.example.parkinggarage.model.Account;
 import com.google.firebase.FirebaseApp;
@@ -23,7 +24,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class ManagerSetupActivityTest {
     private FirebaseFirestore database;
     private String str;
-    Account account;
+    private Employee manager;
 
     @Rule
     public ActivityTestRule<ManagerSetupActivity> activityRule = new ActivityTestRule<>(ManagerSetupActivity.class);
@@ -31,12 +32,12 @@ public class ManagerSetupActivityTest {
     @Before
     public void setup() {
         str = "Hello";
-        account = new Account.Builder()
+        manager = new Employee.Builder()
+                .setIsManager(true)
                 .setFirstname("Joshua")
                 .setLastname("Morris")
                 .setUsername("morrj1")
                 .setPassword("password1")
-                .setIsManager(true)
                 .create();
     }
 
@@ -44,10 +45,10 @@ public class ManagerSetupActivityTest {
     public void addAccountCorrectInput() {
         FirebaseApp.initializeApp(activityRule.getActivity().getApplicationContext());
         database = FirebaseFirestore.getInstance();
-        onView(withId(R.id.firstnameEditText)).perform(replaceText(account.getFirstname()));
-        onView(withId(R.id.lastnameEditText)).perform(replaceText(account.getLastname()));
-        onView(withId(R.id.usernameEditText)).perform(replaceText(account.getUsername()));
-        onView(withId(R.id.passwordEditText)).perform(replaceText(account.getPassword()));
+        onView(withId(R.id.firstnameEditText)).perform(replaceText(manager.getFirstname()));
+        onView(withId(R.id.lastnameEditText)).perform(replaceText(manager.getLastname()));
+        onView(withId(R.id.usernameEditText)).perform(replaceText(manager.getUsername()));
+        onView(withId(R.id.passwordEditText)).perform(replaceText(manager.getPassword()));
         onView(withId(R.id.nextButton)).perform(click());
     }
 

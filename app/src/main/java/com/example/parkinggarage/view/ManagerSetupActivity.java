@@ -26,7 +26,9 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ManagerSetupActivityPresenter presenter = new ManagerSetupActivityPresenter(ManagerSetupActivity.this, this);
+        FirebaseApp.initializeApp(ManagerSetupActivity.this);
+
+        final ManagerSetupActivityPresenter presenter = new ManagerSetupActivityPresenter(ManagerSetupActivity.this, this);
 
         setEditorFocusChanges();
         Button nextButton = findViewById(R.id.nextButton);
@@ -40,10 +42,12 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
                 EditText usernameEditText = findViewById(R.id.usernameEditText);
                 EditText passwordEditText = findViewById(R.id.passwordEditText);
 
-                String firstname = firstnameEditText.toString();
-                String lastname = lastnameEditText.toString();
-                String username = usernameEditText.toString();
-                String password = passwordEditText.toString();
+                String firstname = firstnameEditText.getText().toString();
+                String lastname = lastnameEditText.getText().toString();
+                String username = usernameEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+
+                presenter.addManager(firstname, lastname, username, password);
             }
         });
     }

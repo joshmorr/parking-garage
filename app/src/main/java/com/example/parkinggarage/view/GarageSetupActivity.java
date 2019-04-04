@@ -29,7 +29,7 @@ public class GarageSetupActivity extends AppCompatActivity {
 //                int nRows = Integer.valueOf(rowsEditText.getText().toString());
 //                int nSpacesPerRow = Integer.valueOf(spacesEditText.getText().toString());
 //                Garage garage = new Garage(nRows, nSpacesPerRow);
-//                GarageSystem system = new GarageSystem(garage);
+//                Garage system = new Garage(garage);
 //                FirebaseApp.initializeApp(GarageSetupActivity.this);
 //                FirebaseFirestore db = FirebaseFirestore.getInstance();
 //                db.collection("systems").add(system).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

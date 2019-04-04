@@ -12,7 +12,6 @@ public abstract class Document {
 
     public Document(Stay stay) {
         plateNumber = stay.getCustomer().getVehicle().getPlateNumber();
-        attendantName = stay.getAttendant().getFirstname();
         category = categoryToString();
         timeParked = timeParkedToString();
 

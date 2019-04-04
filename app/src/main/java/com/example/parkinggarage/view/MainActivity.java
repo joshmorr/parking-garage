@@ -23,12 +23,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        FirebaseApp.initializeApp(getApplicationContext());
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        FirebaseApp.initializeApp(getApplicationContext());
 
         final MainActivityPresenter presenter = new MainActivityPresenter(MainActivity.this, this);
 
