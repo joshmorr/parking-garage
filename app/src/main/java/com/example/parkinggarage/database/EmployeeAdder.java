@@ -4,12 +4,13 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.parkinggarage.model.Employee;
+import com.example.parkinggarage.model.Manager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class EmployeeAdder {
-    private FirebaseFirestore database;
+    private FirebaseFirestore db;
     private Employee employee;
     private String username;
     private String collectionPath;
@@ -20,7 +21,7 @@ public class EmployeeAdder {
     private static final String addAttendantTag = "AddAttendantActivity";
 
     public EmployeeAdder(Employee employee) {
-        database = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
         this.employee = employee;
         username = employee.getUsername();
         if (employee.isManager()) {
@@ -34,7 +35,7 @@ public class EmployeeAdder {
     }
 
     public void add() {
-        database.collection(collectionPath)
+        db.collection(collectionPath)
                 .document(username)
                 .set(employee)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

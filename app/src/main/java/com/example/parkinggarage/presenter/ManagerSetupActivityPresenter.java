@@ -3,7 +3,11 @@ package com.example.parkinggarage.presenter;
 import android.content.Context;
 
 import com.example.parkinggarage.database.EmployeeAdder;
-import com.example.parkinggarage.model.Employee;
+import com.example.parkinggarage.database.GarageAdder;
+import com.example.parkinggarage.model.Garage;
+import com.example.parkinggarage.model.Manager;
+import com.example.parkinggarage.model.PaymentScheme;
+import com.google.firebase.firestore.DocumentReference;
 
 public class ManagerSetupActivityPresenter extends Presenter {
     private View view;
@@ -13,18 +17,16 @@ public class ManagerSetupActivityPresenter extends Presenter {
         this.view = view;
     }
 
-    public void addManager(String firstname, String lastname, String username, String password) {
-        Employee manager = new Employee.Builder()
-                                .setIsManager(true)
-                                .setFirstname(firstname)
-                                .setLastname(lastname)
-                                .setUsername(username)
-                                .setPassword(password)
-                                .create();
-        if (manager.fieldsAreFilled())
+    public void next(String firstname, String lastname, String username, String password) {
+        Manager manager = new Manager(firstname, lastname, username, password);
+        if (manager.fieldsAreFilled()) {
+            GarageAdder garageAdder = new GarageAdder(new Garage(new PaymentScheme()));
+            garageAdder.add();
             new EmployeeAdder(manager).add();
-        else
+        }
+        else {
             view.showFailedAddManagerDialog();
+        }
     }
 
     public interface View {

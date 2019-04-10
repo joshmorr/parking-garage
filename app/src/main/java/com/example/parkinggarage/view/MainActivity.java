@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
-import com.example.parkinggarage.model.Account;
 import com.example.parkinggarage.presenter.MainActivityPresenter;
 import com.google.firebase.FirebaseApp;
 
@@ -128,9 +127,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         });
     }
 
-    public void startManagerActivity(Account account) {
+    public void startManagerActivity() {
         Intent intent = new Intent(this, ManagerActivity.class);
-        intent.putExtra("account", account);
         startActivity(intent);
     }
 

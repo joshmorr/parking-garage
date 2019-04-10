@@ -2,7 +2,6 @@ package com.example.parkinggarage;
 
 import com.example.parkinggarage.model.Employee;
 import com.example.parkinggarage.view.ManagerSetupActivity;
-import com.example.parkinggarage.model.Account;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -19,10 +18,11 @@ import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.junit.Assert.assertTrue;
 
 @LargeTest
 public class ManagerSetupActivityTest {
-    private FirebaseFirestore database;
+    private FirebaseFirestore db;
     private String str;
     private Employee manager;
 
@@ -32,24 +32,18 @@ public class ManagerSetupActivityTest {
     @Before
     public void setup() {
         str = "Hello";
-        manager = new Employee.Builder()
-                .setIsManager(true)
-                .setFirstname("Joshua")
-                .setLastname("Morris")
-                .setUsername("morrj1")
-                .setPassword("password1")
-                .create();
     }
 
     @Test
     public void addAccountCorrectInput() {
         FirebaseApp.initializeApp(activityRule.getActivity().getApplicationContext());
-        database = FirebaseFirestore.getInstance();
-        onView(withId(R.id.firstnameEditText)).perform(replaceText(manager.getFirstname()));
-        onView(withId(R.id.lastnameEditText)).perform(replaceText(manager.getLastname()));
-        onView(withId(R.id.usernameEditText)).perform(replaceText(manager.getUsername()));
-        onView(withId(R.id.passwordEditText)).perform(replaceText(manager.getPassword()));
+        db = FirebaseFirestore.getInstance();
+        onView(withId(R.id.firstnameEditText)).perform(replaceText("Joshua"));
+        onView(withId(R.id.lastnameEditText)).perform(replaceText("Morris"));
+        onView(withId(R.id.usernameEditText)).perform(replaceText("morrj1"));
+        onView(withId(R.id.passwordEditText)).perform(replaceText("password1"));
         onView(withId(R.id.nextButton)).perform(click());
+        assertTrue(true);
     }
 
 

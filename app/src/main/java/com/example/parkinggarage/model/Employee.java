@@ -1,18 +1,16 @@
 package com.example.parkinggarage.model;
 
-public class Employee {
-    private boolean isManager;
+public abstract class Employee {
     private String firstname;
     private String lastname;
     private String username;
     private String password;
 
-    public Employee(Builder builder) {
-        this.isManager = builder.isManager;
-        this.firstname = builder.firstname;
-        this.lastname = builder.lastname;
-        this.username = builder.username;
-        this.password = builder.password;
+    public Employee(String firstname, String lastname, String username, String password) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.password = password;
     }
 
     public boolean fieldsAreFilled() {
@@ -21,14 +19,6 @@ public class Employee {
         if (username == null || username.isEmpty()) return false;
         if (password == null || password.isEmpty()) return false;
         return true;
-    }
-
-    public boolean isManager() {
-        return isManager;
-    }
-
-    public void setManager(boolean manager) {
-        isManager = manager;
     }
 
     public String getFirstname() {
@@ -63,42 +53,6 @@ public class Employee {
         this.password = password;
     }
 
-    public static class Builder {
-        private boolean isManager;
-        private String firstname;
-        private String lastname;
-        private String username;
-        private String password;
-
-        public Builder setIsManager(boolean manager) {
-            isManager = manager;
-            return this;
-        }
-
-        public Builder setFirstname(String firstname) {
-            this.firstname = firstname;
-            return this;
-        }
-
-        public Builder setLastname(String lastname) {
-            this.lastname = lastname;
-            return this;
-        }
-
-        public Builder setUsername(String username) {
-            this.username = username;
-            return this;
-        }
-
-        public Builder setPassword(String password) {
-            this.password = password;
-            return this;
-        }
-
-        public Employee create() {
-            return new Employee(this);
-        }
-    }
-
+    public abstract boolean isManager();
 
 }

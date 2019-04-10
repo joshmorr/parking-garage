@@ -47,13 +47,14 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                presenter.addManager(firstname, lastname, username, password);
+                presenter.next(firstname, lastname, username, password);
+                startManagerActivity();
             }
         });
     }
 
-    public void startGarageSetUpActivity() {
-        Intent intent = new Intent(this, GarageSetupActivity.class);
+    public void startManagerActivity() {
+        Intent intent = new Intent(this, ManagerActivity.class);
         startActivity(intent);
     }
 
