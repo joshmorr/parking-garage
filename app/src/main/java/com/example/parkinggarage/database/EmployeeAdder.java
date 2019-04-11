@@ -9,44 +9,41 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class EmployeeAdder {
-    private FirebaseFirestore db;
+public class EmployeeAdder extends Adder {
     private Employee employee;
     private String username;
-    private String collectionPath;
-    private String tag;
     private static final String managersCollection = "managers";
     private static final String attendantsCollection = "attendant";
     private static final String addManagerTag = "ManagerAccountSetupActivity";
     private static final String addAttendantTag = "AddAttendantActivity";
 
     public EmployeeAdder(Employee employee) {
-        db = FirebaseFirestore.getInstance();
+        super();
         this.employee = employee;
         username = employee.getUsername();
         if (employee.isManager()) {
-            collectionPath = managersCollection;
-            tag = addManagerTag;
+            setCollectionPath(managersCollection);
+            setTag(addManagerTag);
         }
         else {
-            collectionPath = attendantsCollection;
-            tag = addAttendantTag;
+            setCollectionPath(attendantsCollection);
+            setTag(addAttendantTag);
         }
     }
 
     public void add() {
-        db.collection(collectionPath)
+        getDatabase().collection(getCollectionPath())
                 .document(username)
                 .set(employee)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d(tag, "DocumentSnapshot successfully written!");
+                        Log.d(getTag(), "DocumentSnapshot successfully written!");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(tag, "Error adding document", e);
+                        Log.w(getTag(), "Error adding document", e);
                     }
                 });
     }

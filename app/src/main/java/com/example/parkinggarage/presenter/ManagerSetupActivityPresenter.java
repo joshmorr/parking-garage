@@ -20,9 +20,8 @@ public class ManagerSetupActivityPresenter extends Presenter {
     public void next(String firstname, String lastname, String username, String password) {
         Manager manager = new Manager(firstname, lastname, username, password);
         if (manager.fieldsAreFilled()) {
-            GarageAdder garageAdder = new GarageAdder(new Garage(new PaymentScheme()));
-            garageAdder.add();
             new EmployeeAdder(manager).add();
+            new GarageAdder(new Garage(new PaymentScheme())).add();
         }
         else {
             view.showFailedAddManagerDialog();

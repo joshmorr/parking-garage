@@ -3,13 +3,13 @@ package com.example.parkinggarage.database;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Login {
-    private FirebaseFirestore database;
+    private FirebaseFirestore db;
     private String username;
     private String password;
-    private boolean managerSelected;
+    private static String TAG = "MainActivity";
 
-    public Login(String username, String password) {
-        database = FirebaseFirestore.getInstance();
+    public Login(boolean isManager, String username, String password) {
+        db = FirebaseFirestore.getInstance();
         this.username = username;
         this.password = password;
     }

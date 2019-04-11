@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
@@ -42,82 +43,24 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
         });
 
-        Button loginButton = findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.loginButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 TextInputEditText usernameField = findViewById(R.id.usernameEditText);
                 TextInputEditText passwordField = findViewById(R.id.passwordEditText);
 
-                presenter.login(usernameField.getText().toString(), passwordField.getText().toString());
+                boolean isManager = false;
+                RadioGroup radioGroup = findViewById(R.id.radioGroup);
+                if (radioGroup.getCheckedRadioButtonId() == R.id.managerButton)
+                    isManager = true;
+
+                presenter.login(isManager, usernameField.getText().toString(), passwordField.getText().toString());
 
             }
         });
 
 
-       /* Button loginButton = findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TextInputEditText usernameField = findViewById(R.id.usernameEditText);
-                TextInputEditText passwordField = findViewById(R.id.passwordEditText);
-
-                final String username = usernameField.getText().toString();
-                final String password = passwordField.getText().toString();
-
-                final CollectionReference cr = database.collection("accounts");
-                ImageView view = new ImageView(MainActivity.this);
-                view.setImageResource(R.drawable.gandalf);
-                CustomDialog cd = new CustomDialog(MainActivity.this, getString(R.string.failed_login_dialog_title),  getString(R.string.failed_login_dialog_message), view);
-                final AlertDialog dialog = cd.getBuilder().create();
-                cr.whereEqualTo("username", username).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            if (task.getResult() == null) {
-                                dialog.show();
-                                Log.d(TAG, "Task result is null");
-                            }
-                            else if (task.getResult().getDocuments() == null){
-                                dialog.show();
-                                Log.d(TAG, "DocumentSnapshot list is null");
-                            }
-                            else if (task.getResult().getDocuments().size() == 0){
-                                dialog.show();
-                                Log.d(TAG, "DocumentSnapshot list is has no elements");
-                            }
-                            else {
-                                Log.d(TAG, "Username exists!");
-                                DocumentSnapshot document = task.getResult().getDocuments().get(0);
-                                if (document.get("password").equals(password)) {
-                                    Log.d(TAG, "Password matches!");
-                                    if (document.get("isManager").equals(true)) {
-                                        Map<String, Object> map = document.getData();
-                                        Account account = new Account.Builder()
-                                                .setFirstname((String) map.get("firstname"))
-                                                .setLastname((String) map.get("lastname"))
-                                                .setUsername((String) map.get("username"))
-                                                .setPassword((String) map.get("password"))
-                                                .setIsManager((boolean) map.get("isManager"))
-                                                .create();
-                                        startManagerActivity(account);
-                                    }
-                                }
-                                else {
-                                    dialog.show();
-                                    Log.d(TAG, "Password does not match");
-                                }
-
-                            }
-                        }
-                        else {
-                            dialog.show();
-                            Log.d(TAG, "Could not complete task!");
-                        }
-                    }
-                });
-            }
-        }); */
+       
         Button setUpButton = findViewById(R.id.setupButton);
         setUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
