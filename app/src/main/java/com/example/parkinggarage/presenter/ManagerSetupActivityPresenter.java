@@ -7,7 +7,6 @@ import com.example.parkinggarage.database.GarageAdder;
 import com.example.parkinggarage.model.Garage;
 import com.example.parkinggarage.model.Manager;
 import com.example.parkinggarage.model.PaymentScheme;
-import com.google.firebase.firestore.DocumentReference;
 
 public class ManagerSetupActivityPresenter extends Presenter {
     private View view;

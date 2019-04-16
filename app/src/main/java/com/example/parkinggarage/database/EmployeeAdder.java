@@ -4,12 +4,10 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.parkinggarage.model.Employee;
-import com.example.parkinggarage.model.Manager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 
-public class EmployeeAdder extends Adder {
+public class EmployeeAdder extends FirestoreConnection implements Adder {
     private Employee employee;
     private String username;
     private static final String managersCollection = "managers";
@@ -31,6 +29,7 @@ public class EmployeeAdder extends Adder {
         }
     }
 
+    @Override
     public void add() {
         getDatabase().collection(getCollectionPath())
                 .document(username)
