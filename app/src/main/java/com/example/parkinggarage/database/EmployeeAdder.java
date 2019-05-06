@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.parkinggarage.model.Employee;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class EmployeeAdder extends FirestoreConnection implements Adder {
     private Employee employee;
@@ -15,8 +16,8 @@ public class EmployeeAdder extends FirestoreConnection implements Adder {
     private static final String addManagerTag = "ManagerAccountSetupActivity";
     private static final String addAttendantTag = "AddAttendantActivity";
 
-    public EmployeeAdder(Employee employee) {
-        super();
+    public EmployeeAdder(FirebaseFirestore database, Employee employee) {
+        super(database);
         this.employee = employee;
         username = employee.getUsername();
         if (employee.isManager()) {

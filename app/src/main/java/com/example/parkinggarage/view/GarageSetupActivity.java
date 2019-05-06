@@ -19,7 +19,19 @@ public class GarageSetupActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button finishButton = findViewById(R.id.finishButton);
+        final SpaceButtonFactory spaceButtonFactory = new SpaceButtonFactory();
+
+        final EditText rowsEditText = findViewById(R.id.rowsEditText);
+        final EditText spacesEditText = findViewById(R.id.spacesEditText);
+
+        final Button generateButton = findViewById(R.id.generateButton);
+        generateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
 }

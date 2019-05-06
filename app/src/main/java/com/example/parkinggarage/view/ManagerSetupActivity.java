@@ -35,8 +35,6 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseApp.initializeApp(getApplicationContext());
-                FirebaseFirestore database = FirebaseFirestore.getInstance();
                 EditText firstnameEditText = findViewById(R.id.firstnameEditText);
                 EditText lastnameEditText = findViewById(R.id.lastnameEditText);
                 EditText usernameEditText = findViewById(R.id.usernameEditText);
@@ -46,15 +44,18 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
                 String lastname = lastnameEditText.getText().toString();
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
+                
+                FirebaseApp.initializeApp(getApplicationContext());
+                FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-                presenter.next(firstname, lastname, username, password);
-                startManagerActivity();
+                presenter.next(database, firstname, lastname, username, password);
+                startGarageSetupActivity();
             }
         });
     }
 
-    public void startManagerActivity() {
-        Intent intent = new Intent(this, ManagerActivity.class);
+    public void startGarageSetupActivity() {
+        Intent intent = new Intent(this, GarageSetupActivity.class);
         startActivity(intent);
     }
 

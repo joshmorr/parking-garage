@@ -7,8 +7,8 @@ public abstract class FirestoreConnection {
     private String collectionPath;
     private static String tag;
 
-    public FirestoreConnection() {
-        database = FirebaseFirestore.getInstance();
+    public FirestoreConnection(FirebaseFirestore database) {
+        this.database = database;
     }
 
     public FirebaseFirestore getDatabase() {

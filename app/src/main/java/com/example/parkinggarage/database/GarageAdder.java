@@ -6,24 +6,24 @@ import android.util.Log;
 import com.example.parkinggarage.model.Garage;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class GarageAdder {
-    private FirebaseFirestore db;
+public class GarageAdder implements Adder {
+    private FirebaseFirestore database;
     private Garage garage;
     private static String COLLECTION_PATH = "garages";
     private static String TAG = "ManagerSetupActivity";
     private final GarageId garageId;
 
-    public GarageAdder(Garage garage) {
-        db = FirebaseFirestore.getInstance();
+    public GarageAdder(FirebaseFirestore database, Garage garage) {
+        this.database = database;
         this.garage = garage;
         garageId = new GarageId();
     }
 
+    @Override
     public void add() {
-        db.collection(COLLECTION_PATH).document("garage1").set(garage).addOnSuccessListener(new OnSuccessListener<Void>() {
+        database.collection(COLLECTION_PATH).document("garage1").set(garage).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "DocumentSnapshot successfully written!");
