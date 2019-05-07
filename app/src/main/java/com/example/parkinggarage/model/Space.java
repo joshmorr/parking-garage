@@ -13,7 +13,7 @@ public class Space {
         vehicle = null;
     }
 
-    public Space(int rowNum, int spaceNum, Category category) {
+    public Space(Category category, int rowNum, int spaceNum) {
         this.rowNum = rowNum;
         this.spaceNum = spaceNum;
         this.category = category;

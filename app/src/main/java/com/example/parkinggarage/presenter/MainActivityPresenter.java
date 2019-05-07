@@ -12,7 +12,7 @@ public class MainActivityPresenter extends Presenter {
         this.view = view;
     }
 
-    public void login(boolean isManager, String usernameInput, String passwordInput) {
+    public void login(FirebaseFirestore database, boolean isManager, String usernameInput, String passwordInput) {
 
     }
 

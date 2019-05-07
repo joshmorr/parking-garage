@@ -18,6 +18,7 @@ import com.example.parkinggarage.R;
 import com.example.parkinggarage.presenter.MainActivityPresenter;
 import com.example.parkinggarage.view.CustomDialog;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity implements MainActivityPresenter.View {
     private static String TAG = "MainActivity";
@@ -53,15 +54,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
                 boolean isManager = false;
                 RadioGroup radioGroup = findViewById(R.id.radioGroup);
                 if (radioGroup.getCheckedRadioButtonId() == R.id.managerButton)
-                    isManager = true;
+                isManager = true;
 
-                presenter.login(isManager, usernameField.getText().toString(), passwordField.getText().toString());
+                FirebaseFirestore database = FirebaseFirestore.getInstance();
+
+                presenter.login(database, isManager, usernameField.getText().toString(), passwordField.getText().toString());
 
             }
         });
 
-
-       
         Button setUpButton = findViewById(R.id.setupButton);
         setUpButton.setOnClickListener(new View.OnClickListener() {
             @Override

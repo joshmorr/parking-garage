@@ -2,9 +2,11 @@ package com.example.parkinggarage.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +17,10 @@ import com.example.parkinggarage.R;
 import com.example.parkinggarage.database.UsernameChecker;
 import com.example.parkinggarage.presenter.ManagerSetupActivityPresenter;
 import com.example.parkinggarage.model.ManagerSetupInput;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ManagerSetupActivity extends AppCompatActivity implements ManagerSetupActivityPresenter.View {
@@ -34,6 +39,7 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
 
         setEditorFocusChanges();
         Button nextButton = findViewById(R.id.nextButton);
+
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,22 +53,29 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                ManagerSetupInput input = new ManagerSetupInput(firstname, lastname, username, password);
-
-                if (!input.fieldsAreFilled()) {
-                    return;
-                }
+                final ManagerSetupInput input = new ManagerSetupInput(firstname, lastname, username, password);
 
                 FirebaseFirestore database = FirebaseFirestore.getInstance();
+                UsernameChecker.check(database, input.getUsername());
 
-                if (UsernameChecker.usernameExists(database, username)) {
-                    return;
-                }
-
-                Intent intent = new Intent(getApplicationContext(), GarageSetupActivity.class);
-                intent.putExtra("input", input);
-                startActivity(intent);
-
+                database.collection("managers").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                            } else {
+                                Log.d(TAG, "No such document");
+                                Intent intent = new Intent(getApplicationContext(), GarageSetupActivity.class);
+                                intent.putExtra("input", input);
+                                startActivity(intent);
+                            }
+                        } else {
+                            Log.d(TAG, "get failed with ", task.getException());
+                        }
+                    }
+                });
             }
         });
     }

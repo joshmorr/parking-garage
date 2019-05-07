@@ -1,54 +1,49 @@
 package com.example.parkinggarage.model;
 
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 public class Garage {
-    private Manager manager;
-    private PaymentScheme scheme;
-    private ArrayList<ArrayList<Space>> spaces;
+    private ArrayList<ArrayList<Space>> rowsList;
 
-    public Garage(PaymentScheme scheme) {
-        this.scheme = scheme;
-        setUpSampleGarage();
+    public Garage(TableLayout tableLayout) {
+        create(tableLayout);
     }
 
-    public Garage(Manager manager, PaymentScheme scheme) {
-        this.manager = manager;
-        this.scheme = scheme;
-        setUpSampleGarage();
-    }
+    private void create(TableLayout tableLayout) {
+        int nRows = tableLayout.getChildCount();
+        TableRow row = (TableRow) tableLayout.getChildAt(0);
+        int maxSpaces = row.getChildCount();
 
-    public Space getSpace(int rowNum, int spaceNum) {
-        return spaces.get(rowNum).get(spaceNum);
-    }
-
-    private void setUpSampleGarage() {
-        int nRows = 10;
-        int nSpaces = 20;
-
-        ArrayList<ArrayList<Space>> rowsList = new ArrayList<>(nRows);
+        rowsList = new ArrayList<>(nRows);
         for (int i = 0; i < nRows; i++) {
-            ArrayList<Space> spacesList = new ArrayList<>(nSpaces);
-            for (int j = 0; j < nSpaces; j++) {
-                spacesList.add(new Space(i, j, Category.CAR));
+            ArrayList<Space> spacesList  = new ArrayList<>(maxSpaces);
+            row = (TableRow) tableLayout.getChildAt(i);
+            for (int j = 0; j < maxSpaces; j++) {
+                TextView textView = (TextView) row.getChildAt(j);
+                if (!textView.getText().toString().equals("")) {
+                    Space space = new Space(i,j);
+                    if (textView.getText().toString().equals("M"))
+                        space.setCategory(Category.MOTORCYCLE);
+                    else if (textView.getText().toString().equals("C"))
+                        space.setCategory(Category.CAR);
+                    else if (textView.getText().toString().equals("T"))
+                        space.setCategory(Category.TRUCK);
+                    spacesList.add(space);
+                }
             }
+            rowsList.add(spacesList);
         }
-        spaces = rowsList;
     }
 
-    public PaymentScheme getScheme() {
-        return scheme;
+    public ArrayList<ArrayList<Space>> getRowsList() {
+        return rowsList;
     }
 
-    public void setScheme(PaymentScheme scheme) {
-        this.scheme = scheme;
-    }
-
-    public ArrayList<ArrayList<Space>> getSpaces() {
-        return spaces;
-    }
-
-    public void setSpaces(ArrayList<ArrayList<Space>> spaces) {
-        this.spaces = spaces;
+    public void setRowsList(ArrayList<ArrayList<Space>> rowsList) {
+        this.rowsList = rowsList;
     }
 }

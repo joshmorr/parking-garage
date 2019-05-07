@@ -3,9 +3,9 @@ package com.example.parkinggarage.model;
 public class Manager extends Employee {
     private Garage garage;
 
-    public Manager(String firstname, String lastname, String username, String password) {
+    public Manager(Garage garage, String firstname, String lastname, String username, String password) {
         super(firstname, lastname, username, password);
-        garage = null;
+        this.garage = garage;
     }
 
     public Garage getGarage() {

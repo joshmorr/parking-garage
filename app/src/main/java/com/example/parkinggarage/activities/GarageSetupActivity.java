@@ -14,8 +14,13 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
+import com.example.parkinggarage.model.Garage;
+import com.example.parkinggarage.model.Manager;
+import com.example.parkinggarage.presenter.GarageSetupPresenter;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-public class GarageSetupActivity extends AppCompatActivity {
+public class GarageSetupActivity extends AppCompatActivity implements GarageSetupPresenter.View {
     static final String TAG = "GarageSetupActivity";
 
     @Override
@@ -25,16 +30,19 @@ public class GarageSetupActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        FirebaseApp.initializeApp(GarageSetupActivity.this);
+
+        final GarageSetupPresenter presenter = new GarageSetupPresenter(GarageSetupActivity.this, this);
+
         final EditText rowsEditText = findViewById(R.id.rowsEditText);
         final EditText spacesEditText = findViewById(R.id.spacesEditText);
-
         final TableLayout tableLayout= findViewById(R.id.tableLayout);
-
         final Button generateButton = findViewById(R.id.generateButton);
+        final Button finishButton = findViewById(R.id.finishButton);
+
         generateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 int nRows;
                 int nSpaces;
 
@@ -60,20 +68,46 @@ public class GarageSetupActivity extends AppCompatActivity {
                     TableRow tableRow = new TableRow(getApplicationContext());
                     tableRow.setPadding(0,padding,0,0);
                     for (int j = 0; j < nSpaces; j++) {
-                        TextView textView = new TextView(getApplicationContext());
+                        final TextView textView = new TextView(getApplicationContext());
                         textView.setWidth(rowWidth);
                         textView.setHeight(rowHeight);
                         textView.setBackgroundResource(R.drawable.rectangle);
                         textView.setText("C");
                         textView.setGravity(1);
+
+                        textView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (textView.getText().toString().equals("M")) {
+                                    textView.setText("C");
+                                    return;
+                                }
+                                if (textView.getText().toString().equals("C")) {
+                                    textView.setText("T");
+                                    return;
+                                }
+                                if (textView.getText().toString().equals("T")) {
+                                    textView.setText("");
+                                    return;
+                                }
+                                if (textView.getText().toString().equals("")) {
+                                    textView.setText("M");
+                                }
+                            }
+                        });
                         tableRow.addView(textView);
                     }
                     tableLayout.addView(tableRow);
                 }
-
             }
         });
 
+        finishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 
