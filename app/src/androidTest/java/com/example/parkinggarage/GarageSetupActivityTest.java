@@ -1,6 +1,6 @@
 package com.example.parkinggarage;
 
-import com.example.parkinggarage.view.GarageSetupActivity;
+import com.example.parkinggarage.activities.GarageSetupActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -8,7 +8,6 @@ import org.junit.Test;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
 
-import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 

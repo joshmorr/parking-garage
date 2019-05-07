@@ -2,7 +2,7 @@ package com.example.parkinggarage;
 
 import android.content.Context;
 
-import com.example.parkinggarage.view.MainActivity;
+import com.example.parkinggarage.activities.MainActivity;
 import com.example.parkinggarage.database.Login;
 import com.google.firebase.firestore.FirebaseFirestore;
 

@@ -1,4 +1,4 @@
-package com.example.parkinggarage.view;
+package com.example.parkinggarage.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
+import com.example.parkinggarage.database.UsernameChecker;
 import com.example.parkinggarage.presenter.ManagerSetupActivityPresenter;
+import com.example.parkinggarage.model.ManagerSetupInput;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -44,19 +46,25 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
                 String lastname = lastnameEditText.getText().toString();
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-                
-                FirebaseApp.initializeApp(getApplicationContext());
+
+                ManagerSetupInput input = new ManagerSetupInput(firstname, lastname, username, password);
+
+                if (!input.fieldsAreFilled()) {
+                    return;
+                }
+
                 FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-                presenter.next(database, firstname, lastname, username, password);
-                startGarageSetupActivity();
+                if (UsernameChecker.usernameExists(database, username)) {
+                    return;
+                }
+
+                Intent intent = new Intent(getApplicationContext(), GarageSetupActivity.class);
+                intent.putExtra("input", input);
+                startActivity(intent);
+
             }
         });
-    }
-
-    public void startGarageSetupActivity() {
-        Intent intent = new Intent(this, GarageSetupActivity.class);
-        startActivity(intent);
     }
 
     public void setEditorFocusChanges() {

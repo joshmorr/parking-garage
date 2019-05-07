@@ -1,4 +1,4 @@
-package com.example.parkinggarage.view;
+package com.example.parkinggarage.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.presenter.MainActivityPresenter;
+import com.example.parkinggarage.view.CustomDialog;
 import com.google.firebase.FirebaseApp;
 
 public class MainActivity extends AppCompatActivity implements MainActivityPresenter.View {

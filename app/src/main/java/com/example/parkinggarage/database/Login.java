@@ -7,8 +7,8 @@ public class Login extends FirestoreConnection {
     private String password;
     private static String TAG = "MainActivity";
 
-    public Login(boolean isManager, String username, String password) {
-        super();
+    public Login(FirebaseFirestore database, boolean isManager, String username, String password) {
+        super(database);
         this.username = username;
         this.password = password;
     }

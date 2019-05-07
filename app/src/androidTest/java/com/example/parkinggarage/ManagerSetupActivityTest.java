@@ -1,7 +1,7 @@
 package com.example.parkinggarage;
 
 import com.example.parkinggarage.model.Employee;
-import com.example.parkinggarage.view.ManagerSetupActivity;
+import com.example.parkinggarage.activities.ManagerSetupActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 

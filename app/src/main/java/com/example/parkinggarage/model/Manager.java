@@ -1,11 +1,19 @@
 package com.example.parkinggarage.model;
 
-import com.google.firebase.firestore.DocumentReference;
-
 public class Manager extends Employee {
+    private Garage garage;
 
     public Manager(String firstname, String lastname, String username, String password) {
         super(firstname, lastname, username, password);
+        garage = null;
+    }
+
+    public Garage getGarage() {
+        return garage;
+    }
+
+    public void setGarage(Garage garage) {
+        this.garage = garage;
     }
 
     @Override

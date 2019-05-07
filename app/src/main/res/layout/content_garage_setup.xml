@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".view.GarageSetupActivity"
+    tools:context=".activities.GarageSetupActivity"
     tools:showIn="@layout/activity_garage_setup">
 
     <Button
@@ -76,7 +76,8 @@
                 android:id="@+id/rowsEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/n_rows" />
+                android:hint="@string/n_rows"
+                android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.constraint.Guideline
@@ -104,7 +105,8 @@
                 android:id="@+id/spacesEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Max Spaces per Row" />
+                android:hint="Max Spaces per Row"
+                android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
     </android.support.constraint.ConstraintLayout>
 
@@ -121,5 +123,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/finishButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/generateButton" />
 
 </android.support.constraint.ConstraintLayout>
