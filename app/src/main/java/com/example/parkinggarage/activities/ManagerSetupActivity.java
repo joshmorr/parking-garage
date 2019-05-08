@@ -1,9 +1,13 @@
 package com.example.parkinggarage.activities;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,16 +19,21 @@ import android.widget.TextView;
 
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.database.UsernameChecker;
-import com.example.parkinggarage.presenter.ManagerSetupActivityPresenter;
-import com.example.parkinggarage.model.ManagerSetupInput;
+import com.example.parkinggarage.presenter.EmptyFieldsDialogFragment;
+import com.example.parkinggarage.presenter.ManagerSetupPresenter;
+import com.example.parkinggarage.model.InputFields;
+import com.example.parkinggarage.view.CustomDialog;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class ManagerSetupActivity extends AppCompatActivity implements ManagerSetupActivityPresenter.View {
-    private static final String TAG = "ManagerAccountSetup";
+public class ManagerSetupActivity extends AppCompatActivity implements ManagerSetupPresenter.View {
+    private TextInputLayout firstnameInputLayout;
+    private TextInputLayout lastnameInputLayout;
+    private TextInputLayout usernameInputLayout;
+    private TextInputLayout passwordInputLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +43,19 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
         setSupportActionBar(toolbar);
 
         FirebaseApp.initializeApp(ManagerSetupActivity.this);
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-        final ManagerSetupActivityPresenter presenter = new ManagerSetupActivityPresenter(ManagerSetupActivity.this, this);
+        final ManagerSetupPresenter presenter = new ManagerSetupPresenter(database, this);
+
+        firstnameInputLayout = findViewById(R.id.firstnameInputLayout);
+        lastnameInputLayout = findViewById(R.id.lastnameInputLayout);
+        usernameInputLayout = findViewById(R.id.usernameInputLayout);
+        passwordInputLayout = findViewById(R.id.passwordInputLayout);
+
+        final EditText firstnameEditText = findViewById(R.id.firstnameEditText);
+        final EditText lastnameEditText = findViewById(R.id.lastnameEditText);
+        final EditText usernameEditText = findViewById(R.id.usernameEditText);
+        final EditText passwordEditText = findViewById(R.id.passwordEditText);
 
         setEditorFocusChanges();
         Button nextButton = findViewById(R.id.nextButton);
@@ -43,39 +63,13 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText firstnameEditText = findViewById(R.id.firstnameEditText);
-                EditText lastnameEditText = findViewById(R.id.lastnameEditText);
-                EditText usernameEditText = findViewById(R.id.usernameEditText);
-                EditText passwordEditText = findViewById(R.id.passwordEditText);
-
                 String firstname = firstnameEditText.getText().toString();
                 String lastname = lastnameEditText.getText().toString();
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                final ManagerSetupInput input = new ManagerSetupInput(firstname, lastname, username, password);
-
-                FirebaseFirestore database = FirebaseFirestore.getInstance();
-                UsernameChecker.check(database, input.getUsername());
-
-                database.collection("managers").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                            } else {
-                                Log.d(TAG, "No such document");
-                                Intent intent = new Intent(getApplicationContext(), GarageSetupActivity.class);
-                                intent.putExtra("input", input);
-                                startActivity(intent);
-                            }
-                        } else {
-                            Log.d(TAG, "get failed with ", task.getException());
-                        }
-                    }
-                });
+                InputFields input = new InputFields(firstname, lastname, username, password);
+                presenter.next(input);
             }
         });
     }
@@ -113,7 +107,29 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
     }
 
     @Override
-    public void showFailedAddManagerDialog() {
+    public void setFirstnameError(String message) {
+        firstnameInputLayout.setError(message);
+    }
 
+    @Override
+    public void setLastnameError(String message) {
+        lastnameInputLayout.setError(message);
+    }
+
+    @Override
+    public void setUsernameError(String message) {
+        usernameInputLayout.setError(message);
+    }
+
+    @Override
+    public void setPasswordError(String message) {
+        passwordInputLayout.setError(message);
+    }
+
+    @Override
+    public void startNextActivity(InputFields input) {
+        Intent intent = new Intent(getApplicationContext(), GarageSetupActivity.class);
+        intent.putExtra("input", input);
+        startActivity(intent);
     }
 }

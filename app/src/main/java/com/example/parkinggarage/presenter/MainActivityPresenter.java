@@ -4,11 +4,10 @@ import android.content.Context;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class MainActivityPresenter extends Presenter {
+public class MainActivityPresenter {
     private View view;
 
-    public MainActivityPresenter(Context context, View view) {
-        super(context);
+    public MainActivityPresenter(View view) {
         this.view = view;
     }
 

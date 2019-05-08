@@ -32,7 +32,7 @@ public class GarageSetupActivity extends AppCompatActivity implements GarageSetu
 
         FirebaseApp.initializeApp(GarageSetupActivity.this);
 
-        final GarageSetupPresenter presenter = new GarageSetupPresenter(GarageSetupActivity.this, this);
+        //final GarageSetupPresenter presenter = new GarageSetupPresenter(database, this);
 
         final EditText rowsEditText = findViewById(R.id.rowsEditText);
         final EditText spacesEditText = findViewById(R.id.spacesEditText);

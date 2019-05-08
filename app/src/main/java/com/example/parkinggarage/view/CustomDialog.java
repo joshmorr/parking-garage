@@ -9,7 +9,6 @@ import com.example.parkinggarage.R;
 
 public class CustomDialog {
     private Context context;
-    private AlertDialog dialog;
     private String title;
     private String message;
     private ImageView view;

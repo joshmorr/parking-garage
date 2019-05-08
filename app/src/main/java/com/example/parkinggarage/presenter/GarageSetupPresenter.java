@@ -1,11 +1,20 @@
 package com.example.parkinggarage.presenter;
 
-import android.content.Context;
+import android.widget.TableLayout;
 
-public class GarageSetupPresenter extends Presenter {
+import com.example.parkinggarage.model.InputFields;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-    public GarageSetupPresenter(Context context, View view) {
-        super(context);
+public class GarageSetupPresenter {
+    private FirebaseFirestore database;
+    private View view;
+
+    public GarageSetupPresenter(FirebaseFirestore database, View view) {
+        this.database = database;
+}
+
+    public void finishAccountSetup(FirebaseFirestore database, TableLayout tableLayout, InputFields fields) {
+
     }
 
     public interface View {

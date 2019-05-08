@@ -32,8 +32,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
         FirebaseApp.initializeApp(getApplicationContext());
 
-        final MainActivityPresenter presenter = new MainActivityPresenter(MainActivity.this, this);
-
         TextInputEditText usernameField = findViewById(R.id.usernameEditText);
         usernameField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -58,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
                 FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-                presenter.login(database, isManager, usernameField.getText().toString(), passwordField.getText().toString());
 
             }
         });
