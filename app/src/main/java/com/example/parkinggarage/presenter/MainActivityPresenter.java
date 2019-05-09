@@ -16,7 +16,7 @@ public class MainActivityPresenter {
     }
 
     public interface View {
-        void showFailedLoginDialog();
+
     }
 
 }

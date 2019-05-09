@@ -2,7 +2,9 @@ package com.example.parkinggarage.activities;
 
 import java.lang.Math;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.Garage;
+import com.example.parkinggarage.model.InputFields;
 import com.example.parkinggarage.model.Manager;
 import com.example.parkinggarage.presenter.GarageSetupPresenter;
 import com.google.firebase.FirebaseApp;
@@ -31,9 +34,13 @@ public class GarageSetupActivity extends AppCompatActivity implements GarageSetu
         setSupportActionBar(toolbar);
 
         FirebaseApp.initializeApp(GarageSetupActivity.this);
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-        //final GarageSetupPresenter presenter = new GarageSetupPresenter(database, this);
+        final InputFields input = (InputFields) getIntent().getExtras().get("input");
 
+        final GarageSetupPresenter presenter = new GarageSetupPresenter(database, this);
+
+        final EditText garageNameEditText = findViewById(R.id.garageNameEditText);
         final EditText rowsEditText = findViewById(R.id.rowsEditText);
         final EditText spacesEditText = findViewById(R.id.spacesEditText);
         final TableLayout tableLayout= findViewById(R.id.tableLayout);
@@ -105,10 +112,16 @@ public class GarageSetupActivity extends AppCompatActivity implements GarageSetu
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String garageName = garageNameEditText.getText().toString();
 
+                presenter.finish(tableLayout, input, garageName);
             }
         });
-
     }
 
+    @Override
+    public void startManagerActivity() {
+        Intent intent = new Intent(getApplicationContext(), ManagerActivity.class);
+        startActivity(intent);
+    }
 }

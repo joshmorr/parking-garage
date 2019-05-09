@@ -3,7 +3,6 @@ package com.example.parkinggarage;
 import android.content.Context;
 
 import com.example.parkinggarage.activities.MainActivity;
-import com.example.parkinggarage.database.Login;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -27,7 +26,6 @@ public class MainActivityTest {
     private String str;
     private Context context;
     private FirebaseFirestore db;
-    private Login login;
 
     @Rule
     public ActivityTestRule<MainActivity> activityRule = new ActivityTestRule<>(MainActivity.class);

@@ -1,16 +1,11 @@
 package com.example.parkinggarage.activities;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -18,15 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
-import com.example.parkinggarage.database.UsernameChecker;
-import com.example.parkinggarage.presenter.EmptyFieldsDialogFragment;
 import com.example.parkinggarage.presenter.ManagerSetupPresenter;
 import com.example.parkinggarage.model.InputFields;
-import com.example.parkinggarage.view.CustomDialog;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ManagerSetupActivity extends AppCompatActivity implements ManagerSetupPresenter.View {

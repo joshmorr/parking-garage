@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.presenter.MainActivityPresenter;
-import com.example.parkinggarage.view.CustomDialog;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -79,33 +78,4 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
        startActivity(intent);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void showFailedLoginDialog() {
-        ImageView view = new ImageView(MainActivity.this);
-        view.setImageResource(R.drawable.gandalf);
-        CustomDialog cd = new CustomDialog(MainActivity.this, getString(R.string.failed_login_dialog_title),  getString(R.string.failed_login_dialog_message), view);
-        cd.getBuilder().create().show();
-    }
 }

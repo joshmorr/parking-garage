@@ -6,11 +6,11 @@ public abstract class Employee {
     private String username;
     private String password;
 
-    public Employee(String firstname, String lastname, String username, String password) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.username = username;
-        this.password = password;
+    public Employee(InputFields input) {
+        firstname = input.getFirstname();
+        lastname = input.getLastname();
+        username = input.getUsername();
+        password = input.getPassword();
     }
 
     public boolean fieldsAreFilled() {
@@ -52,7 +52,5 @@ public abstract class Employee {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public abstract boolean isManager();
 
 }

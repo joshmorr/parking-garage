@@ -15,13 +15,6 @@ public class ManagerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manager);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        findViewById(R.id.attendantsButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
 }

@@ -3,11 +3,10 @@ package com.example.parkinggarage.model;
 public class Manager extends Employee {
     private Garage garage;
 
-    public Manager(Garage garage, String firstname, String lastname, String username, String password) {
-        super(firstname, lastname, username, password);
+    public Manager(Garage garage, InputFields input) {
+        super(input);
         this.garage = garage;
     }
-
     public Garage getGarage() {
         return garage;
     }
@@ -16,8 +15,4 @@ public class Manager extends Employee {
         this.garage = garage;
     }
 
-    @Override
-    public boolean isManager() {
-        return true;
-    }
 }

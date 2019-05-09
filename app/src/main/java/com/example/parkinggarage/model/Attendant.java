@@ -1,18 +1,14 @@
 package com.example.parkinggarage.model;
 
 import android.annotation.TargetApi;
+import android.renderscript.ScriptGroup;
 
 import java.time.Instant;
 
 public class Attendant extends Employee {
 
-    public Attendant(String firstname, String lastname, String username, String password) {
-        super(firstname, lastname, username, password);
-    }
-
-    @Override
-    public boolean isManager() {
-        return false;
+    public Attendant(InputFields input) {
+        super(input);
     }
 
     @TargetApi(26)
