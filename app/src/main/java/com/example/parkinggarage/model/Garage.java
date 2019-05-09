@@ -26,16 +26,9 @@ public class Garage {
             tableRow = (TableRow) tableLayout.getChildAt(i);
             for (int j = 0; j < maxSpaces; j++) {
                 TextView textView = (TextView) tableRow.getChildAt(j);
-                if (!textView.getText().toString().equals("")) {
-                    Space space = new Space(i,j);
-                    if (textView.getText().toString().equals("M"))
-                        space.setCategory(Category.MOTORCYCLE);
-                    else if (textView.getText().toString().equals("C"))
-                        space.setCategory(Category.CAR);
-                    else if (textView.getText().toString().equals("T"))
-                        space.setCategory(Category.TRUCK);
-                    spacesList.add(space);
-                }
+                String categoryStr = textView.getText().toString();
+                if (!categoryStr.equals(""))
+                    spacesList.add(new Space(categoryStr, i, j));
             }
             Row row = new Row(spacesList);
             rowsList.add(row);
