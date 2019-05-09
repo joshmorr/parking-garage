@@ -1,6 +1,6 @@
 package com.example.parkinggarage;
 
-import com.example.parkinggarage.activities.ManagerSetupActivity;
+import com.example.parkinggarage.view.ManagerSetupActivity;
 
 import org.junit.Before;
 import org.junit.Rule;

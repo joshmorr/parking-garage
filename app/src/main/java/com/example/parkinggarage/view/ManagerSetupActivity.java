@@ -1,4 +1,4 @@
-package com.example.parkinggarage.activities;
+package com.example.parkinggarage.view;
 
 import android.content.Intent;
 import android.os.Bundle;

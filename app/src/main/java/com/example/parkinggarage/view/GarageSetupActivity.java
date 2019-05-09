@@ -1,10 +1,9 @@
-package com.example.parkinggarage.activities;
+package com.example.parkinggarage.view;
 
 import java.lang.Math;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,9 +15,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
-import com.example.parkinggarage.model.Garage;
 import com.example.parkinggarage.model.InputFields;
-import com.example.parkinggarage.model.Manager;
 import com.example.parkinggarage.presenter.GarageSetupPresenter;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;

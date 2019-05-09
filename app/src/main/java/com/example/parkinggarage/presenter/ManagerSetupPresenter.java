@@ -1,13 +1,8 @@
 package com.example.parkinggarage.presenter;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 
-import com.example.parkinggarage.activities.GarageSetupActivity;
 import com.example.parkinggarage.model.InputFields;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

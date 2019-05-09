@@ -1,6 +1,6 @@
 package com.example.parkinggarage;
 
-import com.example.parkinggarage.activities.GarageSetupActivity;
+import com.example.parkinggarage.view.GarageSetupActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
