@@ -49,8 +49,8 @@ public class MainActivityTest {
 
     @Test
     public void changeTextPassword() {
-        onView(withId(R.id.passwordEditText)).perform(typeText(str));
-        onView(withId(R.id.passwordEditText)).check(matches(withText(str)));
+        onView(withId(R.id.usernameEditText)).perform(typeText(str));
+        onView(withId(R.id.usernameEditText)).check(matches(withText(str)));
     }
 
 

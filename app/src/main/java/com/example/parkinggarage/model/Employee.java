@@ -6,7 +6,7 @@ public abstract class Employee {
     private String username;
     private String password;
 
-    public Employee(InputFields input) {
+    public Employee(InputStrings input) {
         firstname = input.getFirstname();
         lastname = input.getLastname();
         username = input.getUsername();

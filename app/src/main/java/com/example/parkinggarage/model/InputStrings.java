@@ -2,13 +2,21 @@ package com.example.parkinggarage.model;
 
 import java.io.Serializable;
 
-public class InputFields implements Serializable {
+public class InputStrings implements Serializable {
     private String firstname;
     private String lastname;
     private String username;
     private String password;
 
-    public InputFields(String firstname, String lastname, String username, String password) {
+    public InputStrings() {
+    }
+
+    public InputStrings(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public InputStrings(String firstname, String lastname, String username, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;

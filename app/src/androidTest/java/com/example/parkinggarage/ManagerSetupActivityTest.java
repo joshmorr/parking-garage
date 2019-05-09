@@ -47,8 +47,8 @@ public class ManagerSetupActivityTest {
 
     @Test
     public void changeTextPassword() {
-        onView(withId(R.id.passwordEditText)).perform(replaceText(str));
-        onView(withId(R.id.passwordEditText)).check(matches(withText(str)));
+        onView(withId(R.id.usernameEditText)).perform(replaceText(str));
+        onView(withId(R.id.usernameEditText)).check(matches(withText(str)));
     }
 
 }

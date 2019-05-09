@@ -3,7 +3,7 @@ package com.example.parkinggarage.presenter;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.parkinggarage.model.InputFields;
+import com.example.parkinggarage.model.InputStrings;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -19,13 +19,13 @@ public class ManagerSetupPresenter {
         this.view = view;
     }
 
-    public void next(InputFields input)  {
+    public void next(InputStrings input)  {
         if (checkFields(input)) {
             checkUsername(input);
         }
     }
 
-    public boolean checkFields(InputFields input) {
+    public boolean checkFields(InputStrings input) {
         boolean condition = true;
         if (input.getFirstname().isEmpty()) {
             view.setFirstnameError("You must enter a first name!");
@@ -47,18 +47,18 @@ public class ManagerSetupPresenter {
     }
 
 
-    private void checkUsername(final InputFields input) {
-        String username = input.getUsername();
-        database.collection("managers").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        Log.d(TAG, "No such document");
-                        view.startNextActivity(input);
+    private void checkUsername(final InputStrings input) {
+                            String username = input.getUsername();
+                            database.collection("managers").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                        } else {
+                                            Log.d(TAG, "No such document");
+                                            view.startNextActivity(input);
                     }
                 } else {
                     Log.d(TAG, "get failed with ", task.getException());
@@ -72,7 +72,7 @@ public class ManagerSetupPresenter {
         void setLastnameError(String message);
         void setUsernameError(String message);
         void setPasswordError(String message);
-        void startNextActivity(InputFields input);
+        void startNextActivity(InputStrings input);
     }
 
 }

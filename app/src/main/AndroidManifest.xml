@@ -12,7 +12,7 @@
         <activity
             android:name=".view.GarageSetupActivity"
             android:label="@string/title_activity_garage_setup"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.ManagerSetupActivity"
             android:label="@string/title_activity_manager_account_setup"

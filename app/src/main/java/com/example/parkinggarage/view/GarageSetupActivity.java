@@ -15,7 +15,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
-import com.example.parkinggarage.model.InputFields;
+import com.example.parkinggarage.model.InputStrings;
 import com.example.parkinggarage.presenter.GarageSetupPresenter;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,7 +33,7 @@ public class GarageSetupActivity extends AppCompatActivity implements GarageSetu
         FirebaseApp.initializeApp(GarageSetupActivity.this);
         FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-        final InputFields input = (InputFields) getIntent().getExtras().get("input");
+        final InputStrings input = (InputStrings) getIntent().getExtras().get("input");
 
         final GarageSetupPresenter presenter = new GarageSetupPresenter(database, this);
 
@@ -117,8 +117,9 @@ public class GarageSetupActivity extends AppCompatActivity implements GarageSetu
     }
 
     @Override
-    public void startManagerActivity() {
+    public void startManagerActivity(String username) {
         Intent intent = new Intent(getApplicationContext(), ManagerActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 }

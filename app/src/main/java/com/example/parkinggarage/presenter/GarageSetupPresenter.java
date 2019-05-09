@@ -5,10 +5,11 @@ import android.util.Log;
 import android.widget.TableLayout;
 
 import com.example.parkinggarage.model.Garage;
-import com.example.parkinggarage.model.InputFields;
+import com.example.parkinggarage.model.InputStrings;
 import com.example.parkinggarage.model.Manager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class GarageSetupPresenter {
@@ -21,19 +22,36 @@ public class GarageSetupPresenter {
         this.view = view;
 }
 
-    public void finish(TableLayout tableLayout, InputFields input, String garageName) {
+    public void finish(TableLayout tableLayout, InputStrings input, String garageName) {
         Garage garage = new Garage(tableLayout, garageName);
-        Manager manager = new Manager(garage, input);
-        addToFirestore(database, manager);
+        addGarageToFirestore(database, garage, input);
     }
 
-    public void addToFirestore(FirebaseFirestore database, Manager manager) {
-        String username = manager.getUsername();
+    private void addGarageToFirestore(final FirebaseFirestore database, Garage garage, final InputStrings input) {
+        DocumentReference garageDocRef = database.collection("garages").document();
+        final String garageId = database.collection("garages").document().getId();
+        garageDocRef.set(garage).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "DocumentSnapshot successfully written!");
+                Manager manager = new Manager(garageId, input);
+                addToManagerFirestore(database, manager);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error writing document", e);
+            }
+        });
+    }
+
+    public void addToManagerFirestore(FirebaseFirestore database, Manager manager) {
+        final String username = manager.getUsername();
         database.collection("managers").document(username).set(manager).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "DocumentSnapshot successfully written!");
-                view.startManagerActivity();
+                view.startManagerActivity(username);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -44,6 +62,6 @@ public class GarageSetupPresenter {
     }
 
     public interface View {
-        void startManagerActivity();
+        void startManagerActivity(String username);
     }
 }

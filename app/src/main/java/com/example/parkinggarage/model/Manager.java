@@ -1,18 +1,30 @@
 package com.example.parkinggarage.model;
 
+import java.util.ArrayList;
+
 public class Manager extends Employee {
-    private Garage garage;
+    private String garageId;
+    private ArrayList<String> attendantsList;
 
-    public Manager(Garage garage, InputFields input) {
+    public Manager(String garageId, InputStrings input) {
         super(input);
-        this.garage = garage;
-    }
-    public Garage getGarage() {
-        return garage;
+        this.garageId = garageId;
+        attendantsList = new ArrayList<>();
     }
 
-    public void setGarage(Garage garage) {
-        this.garage = garage;
+    public String getGarageId() {
+        return garageId;
     }
 
+    public void setGarageId(String garageId) {
+        this.garageId = garageId;
+    }
+
+    public ArrayList<String> getAttendantsList() {
+        return attendantsList;
+    }
+
+    public void setAttendantsList(ArrayList<String> attendantsList) {
+        this.attendantsList = attendantsList;
+    }
 }

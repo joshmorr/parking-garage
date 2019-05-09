@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.presenter.ManagerSetupPresenter;
-import com.example.parkinggarage.model.InputFields;
+import com.example.parkinggarage.model.InputStrings;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -57,7 +57,7 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
-                InputFields input = new InputFields(firstname, lastname, username, password);
+                InputStrings input = new InputStrings(firstname, lastname, username, password);
                 presenter.next(input);
             }
         });
@@ -88,7 +88,7 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
         usernameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                TextInputEditText passwordEditText = findViewById(R.id.passwordEditText);
+                TextInputEditText passwordEditText = findViewById(R.id.usernameEditText);
                 passwordEditText.requestFocus();
                 return true;
             }
@@ -116,7 +116,7 @@ public class ManagerSetupActivity extends AppCompatActivity implements ManagerSe
     }
 
     @Override
-    public void startNextActivity(InputFields input) {
+    public void startNextActivity(InputStrings input) {
         Intent intent = new Intent(getApplicationContext(), GarageSetupActivity.class);
         intent.putExtra("input", input);
         startActivity(intent);

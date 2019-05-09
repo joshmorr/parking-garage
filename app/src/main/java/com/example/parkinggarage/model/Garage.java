@@ -28,8 +28,8 @@ public class Garage {
                 TextView textView = (TextView) tableRow.getChildAt(j);
                 String categoryStr = textView.getText().toString();
                 if (!categoryStr.equals(""))
-                    spacesList.add(new Space(categoryStr, i, j));
-            }
+                    spacesList.add(new Space(categoryStr, i + 1, j + 1));
+        }
             Row row = new Row(spacesList);
             rowsList.add(row);
         }
