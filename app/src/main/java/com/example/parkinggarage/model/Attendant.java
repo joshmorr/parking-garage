@@ -10,6 +10,10 @@ public class Attendant extends Employee {
         super(input);
     }
 
+    public Attendant(String firstname, String lastname, String password, String username) {
+        super(firstname, lastname, username, password);
+    }
+
     @TargetApi(26)
     public void park(Customer customer) {
         Stay stay = new Stay(this, customer, Instant.now());

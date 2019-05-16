@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_manager">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/attendantsButton"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -19,10 +19,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/garageButton" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/garageButton"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

@@ -13,6 +13,13 @@ public abstract class Employee {
         password = input.getPassword();
     }
 
+    public Employee(String firstname, String lastname, String username, String password) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.password = password;
+    }
+
     public boolean fieldsAreFilled() {
         if (firstname == null || firstname.isEmpty()) return false;
         if (lastname == null || lastname.isEmpty()) return false;
