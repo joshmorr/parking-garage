@@ -80,4 +80,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         intent.putExtra("username", username);
         startActivity(intent);
     }
+
+    @Override
+    public void startAttendantActivity(String username) {
+        Intent intent = new Intent(this, AttendantActivity.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
 }

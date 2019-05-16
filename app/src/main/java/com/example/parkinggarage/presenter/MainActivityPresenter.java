@@ -46,6 +46,9 @@ public class MainActivityPresenter {
                             if (isManager) {
                                 view.startManagerActivity(username);
                             }
+                            else {
+                                view.startAttendantActivity(username);
+                            }
                         }
                     } else {
                         Log.d(TAG, "No such document");
@@ -59,6 +62,7 @@ public class MainActivityPresenter {
 
     public interface View {
         void startManagerActivity(String username);
+        void startAttendantActivity(String username);
     }
 
 }

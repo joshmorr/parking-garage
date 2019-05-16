@@ -1,6 +1,5 @@
 package com.example.parkinggarage.presenter;
 
-import com.example.parkinggarage.view.ActivityView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ManagerActivityPresenter {
