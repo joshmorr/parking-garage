@@ -82,9 +82,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     }
 
     @Override
-    public void startAttendantActivity(String username) {
+    public void startAttendantActivity(String username, String firstname) {
         Intent intent = new Intent(this, AttendantActivity.class);
         intent.putExtra("username", username);
+        intent.putExtra("firstname", firstname);
         startActivity(intent);
     }
 }

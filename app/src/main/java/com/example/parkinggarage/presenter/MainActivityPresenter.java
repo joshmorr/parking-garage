@@ -41,13 +41,14 @@ public class MainActivityPresenter {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        String password = (String) document.get("password");
+                        String password = document.getString("password");
                         if (passwordInput.equals(password)) {
                             if (isManager) {
                                 view.startManagerActivity(username);
                             }
                             else {
-                                view.startAttendantActivity(username);
+                                String firstname = document.getString("firstname");
+                                view.startAttendantActivity(username, firstname);
                             }
                         }
                     } else {
@@ -62,7 +63,7 @@ public class MainActivityPresenter {
 
     public interface View {
         void startManagerActivity(String username);
-        void startAttendantActivity(String username);
+        void startAttendantActivity(String username, String firstname);
     }
 
 }
