@@ -21,7 +21,7 @@ public class AttendantActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final Attendant attendant = (Attendant) getIntent().getExtras().get("attendant");
+        Attendant attendant = (Attendant) getIntent().getExtras().get("attendant");
 
         final Intent parkIntent = new Intent(this, ParkActivity.class);
         parkIntent.putExtra("attendant", attendant);

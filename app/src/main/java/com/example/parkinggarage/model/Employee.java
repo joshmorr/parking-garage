@@ -5,8 +5,10 @@ public abstract class Employee {
     private String lastname;
     private String username;
     private String password;
+    private String garageId;
 
     public Employee() {
+
     }
 
     public Employee(InputStrings input) {
@@ -63,4 +65,11 @@ public abstract class Employee {
         this.password = password;
     }
 
+    public String getGarageId() {
+        return garageId;
+    }
+
+    public void setGarageId(String garageId) {
+        this.garageId = garageId;
+    }
 }

@@ -110,7 +110,6 @@ public class GarageSetupActivity extends AppCompatActivity implements GarageSetu
             @Override
             public void onClick(View v) {
                 String garageName = garageNameEditText.getText().toString();
-
                 presenter.finish(tableLayout, input, garageName);
             }
         });

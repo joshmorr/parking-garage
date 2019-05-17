@@ -8,11 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.parkinggarage.R;
+import com.example.parkinggarage.model.Attendant;
 import com.example.parkinggarage.model.Category;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-public class ParkActivity extends AppCompatActivity {
+public class ParkActivity extends AppCompatActivity implements ParkActivityPresenter.View {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,14 @@ public class ParkActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        FirebaseApp.initializeApp(ParkActivity.this);
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+
+        final Attendant attendant = (Attendant) getIntent().getExtras().get("attendant");
+
+        final ParkActivityPresenter presenter = new ParkActivityPresenter(database, this);
+
+        final TextView plateNumTextView = findViewById(R.id.plateNumEditText);
         final RadioGroup radioGroup = findViewById(R.id.radioGroup2);
         final RadioButton motorcycleButton = findViewById(R.id.motorcycleButton);
         final RadioButton carButton = findViewById(R.id.carButton);
@@ -31,6 +43,7 @@ public class ParkActivity extends AppCompatActivity {
         parkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String plateNum = plateNumTextView.getText().toString();
                 Category category = null;
                 int id = radioGroup.getCheckedRadioButtonId();
                 if (id == motorcycleButton.getId())
@@ -40,6 +53,7 @@ public class ParkActivity extends AppCompatActivity {
                 else if (id == truckButton.getId()) {
                     category = Category.TRUCK;
                 }
+                presenter.park(attendant, plateNum, category);
             }
         });
 

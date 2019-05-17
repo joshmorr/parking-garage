@@ -4,9 +4,9 @@ public class PaymentScheme {
     private double truckEarlyBird;
     private double carEarlyBird;
     private double motorcycleEarlyBird;
-    private double truckPerHour;
-    private double carPerHour;
-    private double motorcyclePerHour;
+    private double truckHourly;
+    private double carHourly;
+    private double motorcycleHourly;
 
     public PaymentScheme() {
         setUp();
@@ -16,9 +16,9 @@ public class PaymentScheme {
         truckEarlyBird = 40;
         carEarlyBird = 20;
         motorcycleEarlyBird = 10;
-        truckPerHour = 5;
-        carPerHour = 2.5;
-        motorcyclePerHour = 1;
+        truckHourly = 5;
+        carHourly = 2.5;
+        motorcycleHourly = 1;
     }
 
     public double getTruckEarlyBird() {
@@ -45,27 +45,27 @@ public class PaymentScheme {
         this.motorcycleEarlyBird = motorcycleEarlyBird;
     }
 
-    public double getTruckPerHour() {
-        return truckPerHour;
+    public double getTruckHourly() {
+        return truckHourly;
     }
 
-    public void setTruckPerHour(double truckPerHour) {
-        this.truckPerHour = truckPerHour;
+    public void setTruckHourly(double truckHourly) {
+        this.truckHourly = truckHourly;
     }
 
-    public double getCarPerHour() {
-        return carPerHour;
+    public double getCarHourly() {
+        return carHourly;
     }
 
-    public void setCarPerHour(double carPerHour) {
-        this.carPerHour = carPerHour;
+    public void setCarHourly(double carHourly) {
+        this.carHourly = carHourly;
     }
 
-    public double getMotorcyclePerHour() {
-        return motorcyclePerHour;
+    public double getMotorcycleHourly() {
+        return motorcycleHourly;
     }
 
-    public void setMotorcyclePerHour(double motorcyclePerHour) {
-        this.motorcyclePerHour = motorcyclePerHour;
+    public void setMotorcycleHourly(double motorcycleHourly) {
+        this.motorcycleHourly = motorcycleHourly;
     }
 }

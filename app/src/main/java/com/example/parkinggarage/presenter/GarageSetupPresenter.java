@@ -29,7 +29,7 @@ public class GarageSetupPresenter {
 
     private void addGarageToFirestore(final FirebaseFirestore database, Garage garage, final InputStrings input) {
         DocumentReference garageDocRef = database.collection("garages").document();
-        final String garageId = database.collection("garages").document().getId();
+        final String garageId = garageDocRef.getId();
         garageDocRef.set(garage).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

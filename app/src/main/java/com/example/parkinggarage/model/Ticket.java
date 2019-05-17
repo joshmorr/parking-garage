@@ -1,16 +1,21 @@
 package com.example.parkinggarage.model;
 
-public class Ticket extends Document {
+import java.time.Instant;
 
-    public Ticket(Stay stay) {
-        super(stay);
+public class Ticket extends Record {
+
+    public Ticket() {
+    }
+
+    public Ticket(Vehicle vehicle, String attendantName, Instant timeParked, double rate) {
+        super(vehicle, attendantName, timeParked, rate);
     }
 
     @Override
     public String toString() {
-        String str = "Ticket:";
-        str += "License Plate Number:\t" + getPlateNumber();
-        str += "Category:\t" + categoryToString();
-        return str;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("License Plate Number: ");
+
+        return stringBuilder.toString();
     }
 }

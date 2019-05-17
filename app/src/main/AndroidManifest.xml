@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".view.TicketActivity"
+            android:label="@string/title_activity_ticket"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".view.ParkActivity"
             android:label="@string/title_activity_park"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.AttendantActivity"
             android:label="AttendantActivity"

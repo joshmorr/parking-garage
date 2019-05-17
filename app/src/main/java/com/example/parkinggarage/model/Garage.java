@@ -4,12 +4,15 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Observable;
 
 public class Garage {
     private ArrayList<Row> rowsList;
     private String name;
+    private PaymentScheme paymentScheme;
+    private int nRows;
+    private int maxSpaces;
     private int emptyMotorcycleSpaces;
     private int emptyCarSpaces;
     private int emptyTruckSpaces;
@@ -20,6 +23,7 @@ public class Garage {
 
     public Garage(TableLayout tableLayout, String name) {
         this.name = name;
+        paymentScheme = new PaymentScheme();
         emptyMotorcycleSpaces = 0;
         emptyCarSpaces = 0;
         emptyTruckSpaces = 0;
@@ -30,9 +34,9 @@ public class Garage {
     }
 
     private void create(TableLayout tableLayout) {
-        int nRows = tableLayout.getChildCount();
+        nRows = tableLayout.getChildCount();
         TableRow tableRow = (TableRow) tableLayout.getChildAt(0);
-        int maxSpaces = tableRow.getChildCount();
+        maxSpaces = tableRow.getChildCount();
 
         rowsList = new ArrayList<>(nRows);
         for (int i = 0; i < nRows; i++) {
@@ -56,6 +60,19 @@ public class Garage {
         }
     }
 
+    public Ticket parkVehicle(Vehicle vehicle) {
+        for (int i = 0; i < nRows; i++) {
+            Row row = rowsList.get(i);
+            for (int j = 0; j < maxSpaces; j++) {
+                Space space = row.getSpacesList().get(j);
+                if (space.isEmpty() && space.getCategory().equals(vehicle.getCategory())) {
+                    space.setVehicle(vehicle);
+                }
+            }
+        }
+        return null;
+    }
+
     public ArrayList<Row> getRowsList() {
         return rowsList;
     }
@@ -70,6 +87,14 @@ public class Garage {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public PaymentScheme getPaymentScheme() {
+        return paymentScheme;
+    }
+
+    public void setPaymentScheme(PaymentScheme paymentScheme) {
+        this.paymentScheme = paymentScheme;
     }
 
     public int getEmptyMotorcycleSpaces() {
