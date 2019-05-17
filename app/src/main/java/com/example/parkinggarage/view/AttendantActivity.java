@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.parkinggarage.R;
+import com.example.parkinggarage.model.Attendant;
 
 public class AttendantActivity extends AppCompatActivity {
 
@@ -20,11 +21,10 @@ public class AttendantActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final String username = getIntent().getExtras().getString("username");
-        final String firstname = getIntent().getExtras().getString("firstname");
+        final Attendant attendant = (Attendant) getIntent().getExtras().get("attendant");
 
-        final Intent parkIntent = new Intent(this, AttendantsListActivity.class);
-        parkIntent.putExtra("firstname", firstname);
+        final Intent parkIntent = new Intent(this, ParkActivity.class);
+        parkIntent.putExtra("attendant", attendant);
 
         Button parkButton = findViewById(R.id.parkButton);
         parkButton.setOnClickListener(new View.OnClickListener() {

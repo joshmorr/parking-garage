@@ -2,9 +2,12 @@ package com.example.parkinggarage.model;
 
 import android.annotation.TargetApi;
 
+import java.io.Serializable;
 import java.time.Instant;
 
-public class Attendant extends Employee {
+public class Attendant extends Employee implements Serializable {
+    public Attendant() {
+    }
 
     public Attendant(InputStrings input) {
         super(input);

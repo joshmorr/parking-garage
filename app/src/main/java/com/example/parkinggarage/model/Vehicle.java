@@ -1,6 +1,6 @@
 package com.example.parkinggarage.model;
 
-class Vehicle {
+public class Vehicle {
     private Category category;
     private String plateNumber;
 

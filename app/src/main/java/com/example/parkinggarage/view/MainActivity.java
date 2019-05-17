@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
+import com.example.parkinggarage.model.Attendant;
 import com.example.parkinggarage.model.InputStrings;
 import com.example.parkinggarage.presenter.MainActivityPresenter;
 import com.google.firebase.FirebaseApp;
@@ -82,10 +83,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     }
 
     @Override
-    public void startAttendantActivity(String username, String firstname) {
+    public void startAttendantActivity(Attendant attendant) {
         Intent intent = new Intent(this, AttendantActivity.class);
-        intent.putExtra("username", username);
-        intent.putExtra("firstname", firstname);
+        intent.putExtra("attendant", attendant);
         startActivity(intent);
     }
 }

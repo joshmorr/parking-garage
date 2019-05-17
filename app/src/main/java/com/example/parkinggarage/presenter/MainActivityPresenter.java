@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.parkinggarage.model.Attendant;
 import com.example.parkinggarage.model.InputStrings;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -47,8 +48,8 @@ public class MainActivityPresenter {
                                 view.startManagerActivity(username);
                             }
                             else {
-                                String firstname = document.getString("firstname");
-                                view.startAttendantActivity(username, firstname);
+                                Attendant attendant = document.toObject(Attendant.class);
+                                view.startAttendantActivity(attendant);
                             }
                         }
                     } else {
@@ -63,7 +64,7 @@ public class MainActivityPresenter {
 
     public interface View {
         void startManagerActivity(String username);
-        void startAttendantActivity(String username, String firstname);
+        void startAttendantActivity(Attendant attendant);
     }
 
 }
