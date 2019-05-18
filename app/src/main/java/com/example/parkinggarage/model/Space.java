@@ -6,6 +6,9 @@ public class Space {
     private Category category;
     private Vehicle vehicle;
 
+    public Space() {
+    }
+
     public Space(String categoryStr, int rowNum, int spaceNum) {
         this.rowNum = rowNum;
         this.spaceNum = spaceNum;

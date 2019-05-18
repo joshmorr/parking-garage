@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.Attendant;
 import com.example.parkinggarage.model.Category;
+import com.example.parkinggarage.presenter.ParkActivityPresenter;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -59,4 +60,10 @@ public class ParkActivity extends AppCompatActivity implements ParkActivityPrese
 
     }
 
+    @Override
+    public void startTicketActivity(String ticket) {
+        Intent intent = new Intent(getApplicationContext(), TicketActivity.class);
+        intent.putExtra("ticket", ticket);
+        startActivity(intent);
+    }
 }

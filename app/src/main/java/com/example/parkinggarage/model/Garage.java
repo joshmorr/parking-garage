@@ -4,6 +4,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.firebase.Timestamp;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
@@ -20,6 +22,8 @@ public class Garage {
     private int occupiedCarSpaces;
     private int occupiedTruckSpaces;
 
+    public Garage() {
+    }
 
     public Garage(TableLayout tableLayout, String name) {
         this.name = name;
@@ -60,17 +64,17 @@ public class Garage {
         }
     }
 
-    public Ticket parkVehicle(Vehicle vehicle) {
+    public void parkVehicle(Vehicle vehicle) {
         for (int i = 0; i < nRows; i++) {
             Row row = rowsList.get(i);
             for (int j = 0; j < maxSpaces; j++) {
                 Space space = row.getSpacesList().get(j);
                 if (space.isEmpty() && space.getCategory().equals(vehicle.getCategory())) {
                     space.setVehicle(vehicle);
+                    return;
                 }
             }
         }
-        return null;
     }
 
     public ArrayList<Row> getRowsList() {

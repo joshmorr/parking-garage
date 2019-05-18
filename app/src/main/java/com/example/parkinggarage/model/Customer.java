@@ -5,7 +5,7 @@ public class Customer extends Person {
 
     public Customer(String firstname, String lastname, Category category, String plateNumber) {
         super(firstname, lastname);
-        vehicle = new Vehicle(category, plateNumber);
+        vehicle = null;
     }
 
     public Vehicle getVehicle() {

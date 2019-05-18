@@ -1,20 +1,20 @@
 package com.example.parkinggarage.model;
 
-import java.time.Instant;
+import com.google.firebase.Timestamp;
 
 public abstract class Record {
     private Vehicle vehicle;
     private String attendantName;
-    private Instant timeParked;
+    private Timestamp timestamp;
     private double rate;
 
     public Record() {
     }
 
-    public Record(Vehicle vehicle, String attendantName, Instant timeParked, double rate) {
+    public Record(Vehicle vehicle, String attendantName, Timestamp timeParked, double rate) {
         this.vehicle = vehicle;
         this.attendantName = attendantName;
-        this.timeParked = timeParked;
+        this.timestamp = timeParked;
         this.rate = rate;
     }
 
@@ -34,12 +34,12 @@ public abstract class Record {
         this.attendantName = attendantName;
     }
 
-    public Instant getTimeParked() {
-        return timeParked;
+    public Timestamp getTimeParked() {
+        return timestamp;
     }
 
-    public void setTimeParked(Instant timeParked) {
-        this.timeParked = timeParked;
+    public void setTimeParked(Timestamp timeParked) {
+        this.timestamp = timeParked;
     }
 
     public double getRate() {
@@ -49,4 +49,8 @@ public abstract class Record {
     public void setRate(double rate) {
         this.rate = rate;
     }
+
+    @Override
+    public abstract String toString();
+
 }
