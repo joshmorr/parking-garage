@@ -6,6 +6,8 @@ import android.util.Log;
 import com.example.parkinggarage.model.Garage;
 import com.example.parkinggarage.model.Vehicle;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,9 +34,21 @@ public class AttendantActivityPresenter {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         Garage garage = document.toObject(Garage.class);
                         ArrayList<Vehicle> vehiclesList = garage.getParkedVehiclesList();
-                        for (int i = 0; i < vehiclesList.size(); i++) {
-                            
-                        }
+                        final String[] array = new String[vehiclesList.size()];
+                        for (int i = 0; i < vehiclesList.size(); i++)
+                            array[i] = vehiclesList.get(i).toListItemString();
+                        database.collection("garages").document(garageId).set(garage).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                                view.setListAdapter(array);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                            }
+                        });
 
                     } else {
                         Log.d(TAG, "No such document");

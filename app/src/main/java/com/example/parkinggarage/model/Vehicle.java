@@ -33,13 +33,21 @@ public class Vehicle {
     }
 
     private String getDateString(Timestamp timestamp) {
-        String str = timestamp.toDate().toString();
-        return str;
+        return null;
     }
 
     private String getTimeString(Timestamp timestamp) {
         String str = timestamp.toDate().toString();
-        return str;
+        String timeStr = str.substring(11,13);
+        String am_pm = "";
+        int hour = Integer.valueOf(timeStr);
+        if (hour > 12) {
+            hour -= 12;
+            am_pm = "PM";
+        } else {
+            am_pm = "AM";
+        }
+        return hour + str.substring(13,16) + " " + am_pm;
     }
 
     public String getTicketData() {
@@ -130,6 +138,16 @@ public class Vehicle {
     }
 
     public String toListItemString() {
-        return String.format("%-20s%-20s:", getCategoryString(), "10:12 AM");
+        int space = 30;
+        StringBuilder builder = new StringBuilder();
+        builder.append(getCategoryString());
+        for (int i = 0; i < space - getCategoryString().length(); i++)
+            builder.append(" ");
+        String timeStr = getTimeString(timeParked);
+        builder.append(timeStr);
+        for (int i = 0; i < space - timeStr.length(); i++)
+            builder.append(" ");
+        builder.append(plateNumber);
+        return builder.toString();
     }
 }
