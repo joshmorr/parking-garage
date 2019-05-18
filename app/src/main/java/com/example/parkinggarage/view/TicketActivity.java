@@ -1,5 +1,6 @@
 package com.example.parkinggarage.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -10,8 +11,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.parkinggarage.R;
+import com.example.parkinggarage.model.Attendant;
 
 public class TicketActivity extends AppCompatActivity {
+    private Attendant attendant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,7 @@ public class TicketActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Attendant attendant = (Attendant) getIntent().getExtras().get("attendant");
         String ticket = getIntent().getStringExtra("ticket");
 
         TextView dataTextView = findViewById(R.id.ticketDataTextView);
@@ -42,6 +46,17 @@ public class TicketActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Snackbar.make(coordinatorLayout, "The ticket has been sent to the printer.", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        final Intent intent = new Intent(this, AttendantActivity.class);
+        intent.putExtra("attendant", attendant);
+
+        Button finishButton = findViewById(R.id.finishButton);
+        finishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent);
             }
         });
     }

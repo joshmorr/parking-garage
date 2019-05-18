@@ -1,14 +1,9 @@
 package com.example.parkinggarage.model;
 
-import android.annotation.TargetApi;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import com.google.firebase.Timestamp;
-
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Vehicle {
     private Category category;
@@ -17,6 +12,8 @@ public class Vehicle {
     private Timestamp timeParked;
     private Timestamp timeRetrieved;
     private double rate;
+    private int rowNum;
+    private int spaceNum;
 
     public Vehicle() {
     }
@@ -27,25 +24,24 @@ public class Vehicle {
         this.attendantName = attendantName;
         this.timeParked = timeParked;
         this.rate = rate;
+        rowNum = -1;
+        spaceNum = -1;
     }
 
     private void setPaymentSchemeRate() {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private String getDateString(Timestamp timestamp) {
         String str = timestamp.toDate().toString();
         return str;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private String getTimeString(Timestamp timestamp) {
         String str = timestamp.toDate().toString();
         return str;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public String getTicketData() {
         StringBuilder builder = new StringBuilder();
         builder.append(plateNumber)
@@ -54,9 +50,9 @@ public class Vehicle {
                 .append("\n\n")
                 .append(attendantName)
                 .append("\n\n")
-                .append(getDateString(timeParked))
+                .append("2/3/2019")
                 .append("\n\n")
-                .append(getTimeString(timeParked))
+                .append("10:13 AM")
                 .append("\n\n")
                 .append(String.format("$%.2f / hour", rate));
         return builder.toString();
@@ -115,5 +111,25 @@ public class Vehicle {
 
     public void setRate(double rate) {
         this.rate = rate;
+    }
+
+    public int getRowNum() {
+        return rowNum;
+    }
+
+    public void setRowNum(int rowNum) {
+        this.rowNum = rowNum;
+    }
+
+    public int getSpaceNum() {
+        return spaceNum;
+    }
+
+    public void setSpaceNum(int spaceNum) {
+        this.spaceNum = spaceNum;
+    }
+
+    public String toListItemString() {
+        return String.format("%-20s%-20s:", getCategoryString(), "10:12 AM");
     }
 }

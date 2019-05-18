@@ -27,4 +27,5 @@
     <string name="title_activity_attendants_list">AttendantsListActivity</string>
     <string name="title_activity_park">ParkActivity</string>
     <string name="title_activity_ticket">TicketActivity</string>
+    <string name="title_activity_retrieve">RetrieveActivity</string>
 </resources>

@@ -11,6 +11,8 @@ import com.example.parkinggarage.model.Category;
 import com.example.parkinggarage.model.Garage;
 import com.example.parkinggarage.model.Vehicle;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -41,9 +43,20 @@ public class ParkActivityPresenter {
                     if (document.exists()) {
                         Log.d(TAG, "Document exists");
                         Garage garage = document.toObject(Garage.class);
-                        Vehicle vehicle = new Vehicle(category, plateNum, firstname, Timestamp.now(), garage.getPaymentScheme().getRate(category));
+                        final Vehicle vehicle = new Vehicle(category, plateNum, firstname, Timestamp.now(), garage.getPaymentScheme().getRate(category));
                         garage.parkVehicle(vehicle);
-                        database.collection("garages").document(garageId).set(garage);
+                        database.collection("garages").document(garageId).set(garage).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                                view.startTicketActivity(vehicle.getTicketData());
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing document", e);
+                            }
+                        });
                         view.startTicketActivity(vehicle.getTicketData());
 
                     } else {

@@ -18,6 +18,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ParkActivity extends AppCompatActivity implements ParkActivityPresenter.View {
+    private Attendant attendant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class ParkActivity extends AppCompatActivity implements ParkActivityPrese
         FirebaseApp.initializeApp(ParkActivity.this);
         FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-        final Attendant attendant = (Attendant) getIntent().getExtras().get("attendant");
+        attendant = (Attendant) getIntent().getExtras().get("attendant");
 
         final ParkActivityPresenter presenter = new ParkActivityPresenter(database, this);
 
@@ -64,6 +65,7 @@ public class ParkActivity extends AppCompatActivity implements ParkActivityPrese
     public void startTicketActivity(String ticket) {
         Intent intent = new Intent(getApplicationContext(), TicketActivity.class);
         intent.putExtra("ticket", ticket);
+        intent.putExtra("attendant", attendant);
         startActivity(intent);
     }
 }
