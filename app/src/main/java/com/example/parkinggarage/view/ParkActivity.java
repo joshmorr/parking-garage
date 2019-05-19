@@ -13,12 +13,14 @@ import android.widget.TextView;
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.Attendant;
 import com.example.parkinggarage.model.Category;
+import com.example.parkinggarage.model.Vehicle;
 import com.example.parkinggarage.presenter.ParkActivityPresenter;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ParkActivity extends AppCompatActivity implements ParkActivityPresenter.View {
     private Attendant attendant;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,16 +32,16 @@ public class ParkActivity extends AppCompatActivity implements ParkActivityPrese
         FirebaseApp.initializeApp(ParkActivity.this);
         FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-        attendant = (Attendant) getIntent().getExtras().get("attendant");
-
         final ParkActivityPresenter presenter = new ParkActivityPresenter(database, this);
-
         final TextView plateNumTextView = findViewById(R.id.plateNumEditText);
         final RadioGroup radioGroup = findViewById(R.id.radioGroup2);
         final RadioButton motorcycleButton = findViewById(R.id.motorcycleButton);
         final RadioButton carButton = findViewById(R.id.carButton);
         final RadioButton truckButton = findViewById(R.id.truckButton);
 
+        attendant = (Attendant) getIntent().getExtras().get("attendant");
+        intent = new Intent(this, TicketActivity.class);
+        intent.putExtra("attendant", attendant);
 
         Button parkButton = findViewById(R.id.parkButton);
         parkButton.setOnClickListener(new View.OnClickListener() {
@@ -62,10 +64,8 @@ public class ParkActivity extends AppCompatActivity implements ParkActivityPrese
     }
 
     @Override
-    public void startTicketActivity(String ticket) {
-        Intent intent = new Intent(getApplicationContext(), TicketActivity.class);
-        intent.putExtra("ticket", ticket);
-        intent.putExtra("attendant", attendant);
+    public void startTicketActivity(Vehicle vehicle) {
+        intent.putExtra("vehicle", vehicle);
         startActivity(intent);
     }
 }

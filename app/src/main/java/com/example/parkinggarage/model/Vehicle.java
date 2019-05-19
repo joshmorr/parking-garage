@@ -1,8 +1,11 @@
 package com.example.parkinggarage.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.Timestamp;
 
-public class Vehicle {
+public class Vehicle implements Parcelable {
     private Category category;
     private String plateNumber;
     private String attendantName;
@@ -25,9 +28,29 @@ public class Vehicle {
         spaceNum = -1;
     }
 
-    private void setPaymentSchemeRate() {
 
+    protected Vehicle(Parcel in) {
+        category = in.readParcelable(Category.class.getClassLoader());
+        plateNumber = in.readString();
+        attendantName = in.readString();
+        timeParked = in.readParcelable(Timestamp.class.getClassLoader());
+        timeRetrieved = in.readParcelable(Timestamp.class.getClassLoader());
+        rate = in.readDouble();
+        rowNum = in.readInt();
+        spaceNum = in.readInt();
     }
+
+    public static final Creator<Vehicle> CREATOR = new Creator<Vehicle>() {
+        @Override
+        public Vehicle createFromParcel(Parcel in) {
+            return new Vehicle(in);
+        }
+
+        @Override
+        public Vehicle[] newArray(int size) {
+            return new Vehicle[size];
+        }
+    };
 
     private String getDateString(Timestamp timestamp) {
         return null;
@@ -36,7 +59,7 @@ public class Vehicle {
     private String getTimeString(Timestamp timestamp) {
         String str = timestamp.toDate().toString();
         String timeStr = str.substring(11,13);
-        String am_pm = "";
+        String am_pm;
         int hour = Integer.valueOf(timeStr);
         if (hour > 12) {
             hour -= 12;
@@ -57,7 +80,7 @@ public class Vehicle {
                 .append("\n\n")
                 .append("2/3/2019")
                 .append("\n\n")
-                .append("10:13 AM")
+                .append(getTimeString(timeParked))
                 .append("\n\n")
                 .append(String.format("$%.2f / hour", rate));
         return builder.toString();
@@ -68,6 +91,21 @@ public class Vehicle {
         if (category.equals(Category.CAR)) return "Car";
         if (category.equals(Category.TRUCK)) return "Truck";
         return null;
+    }
+
+    @Override
+    public String toString() {
+        int space = 25;
+        StringBuilder builder = new StringBuilder();
+        builder.append(getCategoryString());
+        for (int i = 0; i < space - getCategoryString().length(); i++)
+            builder.append(" ");
+        String timeStr = getTimeString(timeParked);
+        builder.append(timeStr);
+        for (int i = 0; i < space - timeStr.length(); i++)
+            builder.append(" ");
+        builder.append(plateNumber);
+        return builder.toString();
     }
 
     public Category getCategory() {
@@ -134,17 +172,20 @@ public class Vehicle {
         this.spaceNum = spaceNum;
     }
 
-    public String toListItemString() {
-        int space = 25;
-        StringBuilder builder = new StringBuilder();
-        builder.append(getCategoryString());
-        for (int i = 0; i < space - getCategoryString().length(); i++)
-            builder.append(" ");
-        String timeStr = getTimeString(timeParked);
-        builder.append(timeStr);
-        for (int i = 0; i < space - timeStr.length(); i++)
-            builder.append(" ");
-        builder.append(plateNumber);
-        return builder.toString();
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(category, flags);
+        dest.writeString(plateNumber);
+        dest.writeString(attendantName);
+        dest.writeParcelable(timeParked, flags);
+        dest.writeParcelable(timeRetrieved, flags);
+        dest.writeDouble(rate);
+        dest.writeInt(rowNum);
+        dest.writeInt(spaceNum);
     }
 }

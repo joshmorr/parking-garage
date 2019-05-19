@@ -72,8 +72,8 @@ public class Garage {
             for (int j = 0; j < maxSpaces; j++) {
                 Space space = row.getSpacesList().get(j);
                 if (space.isEmpty() && space.getCategory().equals(vehicle.getCategory())) {
-                    vehicle.setRowNum(i);
-                    vehicle.setRowNum(j);
+                    vehicle.setRowNum(i+1);
+                    vehicle.setSpaceNum(j+1);
                     space.setVehicle(vehicle);
                     parkedVehiclesList.add(vehicle);
                     if (space.getCategory().equals(Category.MOTORCYCLE)) {

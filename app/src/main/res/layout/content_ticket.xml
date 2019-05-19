@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/ticketLabelsTextView"
+        android:id="@+id/labelsTextView"
         style="@android:style/TextAppearance"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -37,13 +37,13 @@
         android:layout_marginBottom="32dp"
         android:gravity="top|left"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/printTicketButton"
+        app:layout_constraintBottom_toTopOf="@+id/printButton"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <Button
-        android:id="@+id/printTicketButton"
+        android:id="@+id/printButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -58,7 +58,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/ticketDataTextView"
+        android:id="@+id/dataTextView"
         style="@android:style/TextAppearance"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -68,7 +68,7 @@
         android:layout_marginBottom="32dp"
         android:gravity="top|left"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/printTicketButton"
+        app:layout_constraintBottom_toTopOf="@+id/printButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/titleTextView" />

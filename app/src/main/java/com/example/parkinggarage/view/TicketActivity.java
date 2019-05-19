@@ -12,9 +12,19 @@ import android.widget.TextView;
 
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.Attendant;
+import com.example.parkinggarage.model.Vehicle;
+import com.example.parkinggarage.presenter.TicketActivityPresenter;
 
-public class TicketActivity extends AppCompatActivity {
+public class TicketActivity extends AppCompatActivity implements TicketActivityPresenter.View {
+    private Vehicle vehicle;
     private Attendant attendant;
+    private CoordinatorLayout coordinatorLayout;
+    private TextView dataTextView;
+    private TextView labelsTextView;
+    private Button printButton;
+    private Button finishButton;
+    private Intent intent;
+    private TicketActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,25 +33,20 @@ public class TicketActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Attendant attendant = (Attendant) getIntent().getExtras().get("attendant");
-        String ticket = getIntent().getStringExtra("ticket");
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
+        dataTextView = findViewById(R.id.dataTextView);
+        dataTextView = findViewById(R.id.dataTextView);
+        labelsTextView = findViewById(R.id.labelsTextView);
+        printButton = findViewById(R.id.printButton);
+        finishButton = findViewById(R.id.finishButton);
 
-        TextView dataTextView = findViewById(R.id.ticketDataTextView);
-        dataTextView.setText(ticket);
+        vehicle = (Vehicle) getIntent().getExtras().get("vehicle");
+        attendant = (Attendant) getIntent().getExtras().get("attendant");
 
-        TextView labelsTextView = findViewById(R.id.ticketLabelsTextView);
-        StringBuilder builder = new StringBuilder();
-        builder.append("License Plate Number:")
-                .append("\n\nVehicle Category:")
-                .append("\n\nAttendant Name:")
-                .append("\n\nDate:")
-                .append("\n\nTimeParked:")
-                .append("\n\nRate");
-        labelsTextView.setText(builder.toString());
+        presenter = new TicketActivityPresenter(vehicle, attendant, this);
+        presenter.setLabels();
+        presenter.setData();
 
-        final CoordinatorLayout coordinatorLayout = findViewById(R.id.coordinatorLayout);
-
-        Button printButton = findViewById(R.id.printTicketButton);
         printButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,16 +54,28 @@ public class TicketActivity extends AppCompatActivity {
             }
         });
 
-        final Intent intent = new Intent(this, AttendantActivity.class);
-        intent.putExtra("attendant", attendant);
-
-        Button finishButton = findViewById(R.id.finishButton);
+        intent = new Intent(this, AttendantActivity.class);
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(intent);
+                presenter.finish();
             }
         });
     }
 
+    @Override
+    public void setLabels(String labels) {
+        labelsTextView.setText(labels);
+    }
+
+    @Override
+    public void setData(String data) {
+        dataTextView.setText(data);
+    }
+
+    @Override
+    public void startAttendantActivity(Attendant attendant) {
+        intent.putExtra("attendant", attendant);
+        startActivity(intent);
+    }
 }

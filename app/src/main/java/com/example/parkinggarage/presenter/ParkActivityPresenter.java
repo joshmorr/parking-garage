@@ -29,7 +29,6 @@ public class ParkActivityPresenter {
     }
 
     public void park(Attendant attendant, final String plateNum, final Category category) {
-        String username = attendant.getUsername();
         final String firstname = attendant.getFirstname();
         final String garageId = attendant.getGarageId();
 
@@ -49,7 +48,7 @@ public class ParkActivityPresenter {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.d(TAG, "DocumentSnapshot successfully written!");
-                                view.startTicketActivity(vehicle.getTicketData());
+                                view.startTicketActivity(vehicle);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -57,8 +56,6 @@ public class ParkActivityPresenter {
                                 Log.w(TAG, "Error writing document", e);
                             }
                         });
-                        view.startTicketActivity(vehicle.getTicketData());
-
                     } else {
                         Log.d(TAG, "No such document:" + garageId);
                     }
@@ -70,6 +67,6 @@ public class ParkActivityPresenter {
     }
 
     public interface View {
-        void startTicketActivity(String ticket);
+        void startTicketActivity(Vehicle vehicle);
     }
 }
