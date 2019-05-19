@@ -1,8 +1,5 @@
 package com.example.parkinggarage.model;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-
 import com.google.firebase.Timestamp;
 
 public class Vehicle {
@@ -138,7 +135,7 @@ public class Vehicle {
     }
 
     public String toListItemString() {
-        int space = 30;
+        int space = 25;
         StringBuilder builder = new StringBuilder();
         builder.append(getCategoryString());
         for (int i = 0; i < space - getCategoryString().length(); i++)

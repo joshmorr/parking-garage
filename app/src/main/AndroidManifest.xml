@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".view.ReceiptActivity"
+            android:label="@string/title_activity_receipt"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".view.TicketActivity"
             android:label="@string/title_activity_ticket"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -19,7 +23,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.AttendantActivity"
-            android:label="AttendantActivity"
+            android:label="@string/title_activity_attendant"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.AttendantsListActivity"
