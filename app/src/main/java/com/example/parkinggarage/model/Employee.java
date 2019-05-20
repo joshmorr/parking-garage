@@ -1,6 +1,8 @@
 package com.example.parkinggarage.model;
 
-public abstract class Employee {
+import java.io.Serializable;
+
+public abstract class Employee implements Serializable {
     private String firstname;
     private String lastname;
     private String username;
@@ -24,6 +26,7 @@ public abstract class Employee {
         this.username = username;
         this.password = password;
     }
+
 
     public boolean fieldsAreFilled() {
         if (firstname == null || firstname.isEmpty()) return false;

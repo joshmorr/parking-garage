@@ -46,6 +46,9 @@ public class MainActivityPresenter {
                             }
                             else {
                                 Attendant attendant = document.toObject(Attendant.class);
+                                String garageId = attendant.getGarageId();
+                                garageId = garageId.trim();
+                                attendant.setGarageId(garageId);
                                 view.startAttendantActivity(attendant);
                             }
                         }

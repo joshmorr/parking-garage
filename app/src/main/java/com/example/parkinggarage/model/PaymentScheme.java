@@ -21,6 +21,16 @@ public class PaymentScheme {
         motorcycleHourly = 1;
     }
 
+    public double getRate(Category category) {
+        if (category.equals(Category.MOTORCYCLE))
+            return motorcycleHourly;
+        if (category.equals(Category.CAR))
+            return carHourly;
+        if (category.equals(Category.TRUCK))
+            return truckHourly;
+        return -1;
+    }
+
     public double getTruckEarlyBird() {
         return truckEarlyBird;
     }

@@ -2,16 +2,13 @@ package com.example.parkinggarage.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.Attendant;
@@ -21,7 +18,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity implements MainActivityPresenter.View {
-    private static String TAG = "MainActivity";
+    private Intent attendantIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         final Button loginButton = findViewById(R.id.loginButton);
         final Button setupButton = findViewById(R.id.setupButton);
         final RadioGroup radioGroup = findViewById(R.id.radioGroup);
+
+        attendantIntent = new Intent(this, AttendantActivity.class);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,8 +83,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
     @Override
     public void startAttendantActivity(Attendant attendant) {
-        Intent intent = new Intent(this, AttendantActivity.class);
-        intent.putExtra("attendant", attendant);
-        startActivity(intent);
+        attendantIntent.putExtra("attendant", attendant);
+        startActivity(attendantIntent);
     }
 }

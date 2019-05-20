@@ -4,11 +4,14 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.firebase.Timestamp;
+
 import java.time.Instant;
 import java.util.ArrayList;
 
 public class Garage {
     private ArrayList<Row> rowsList;
+    private ArrayList<Vehicle> parkedVehiclesList;
     private String name;
     private PaymentScheme paymentScheme;
     private int nRows;
@@ -20,8 +23,11 @@ public class Garage {
     private int occupiedCarSpaces;
     private int occupiedTruckSpaces;
 
+    public Garage() {
+    }
 
     public Garage(TableLayout tableLayout, String name) {
+        parkedVehiclesList = new ArrayList<>();
         this.name = name;
         paymentScheme = new PaymentScheme();
         emptyMotorcycleSpaces = 0;
@@ -60,17 +66,32 @@ public class Garage {
         }
     }
 
-    public Ticket parkVehicle(Vehicle vehicle) {
+    public void parkVehicle(Vehicle vehicle) {
         for (int i = 0; i < nRows; i++) {
             Row row = rowsList.get(i);
             for (int j = 0; j < maxSpaces; j++) {
                 Space space = row.getSpacesList().get(j);
                 if (space.isEmpty() && space.getCategory().equals(vehicle.getCategory())) {
+                    vehicle.setRowNum(i+1);
+                    vehicle.setSpaceNum(j+1);
                     space.setVehicle(vehicle);
+                    parkedVehiclesList.add(vehicle);
+                    if (space.getCategory().equals(Category.MOTORCYCLE)) {
+                       occupiedMotorcycleSpaces++;
+                       emptyMotorcycleSpaces--;
+                    }
+                    else if (space.getCategory().equals(Category.CAR)) {
+                        occupiedCarSpaces++;
+                        emptyMotorcycleSpaces--;
+                    }
+                    else if (space.getCategory().equals(Category.TRUCK)) {
+                        occupiedTruckSpaces++;
+                        emptyTruckSpaces--;
+                    }
+                    return;
                 }
             }
         }
-        return null;
     }
 
     public ArrayList<Row> getRowsList() {
@@ -79,6 +100,14 @@ public class Garage {
 
     public void setRowsList(ArrayList<Row> rowsList) {
         this.rowsList = rowsList;
+    }
+
+    public ArrayList<Vehicle> getParkedVehiclesList() {
+        return parkedVehiclesList;
+    }
+
+    public void setParkedVehiclesList(ArrayList<Vehicle> parkedVehiclesList) {
+        this.parkedVehiclesList = parkedVehiclesList;
     }
 
     public String getName() {
@@ -95,6 +124,22 @@ public class Garage {
 
     public void setPaymentScheme(PaymentScheme paymentScheme) {
         this.paymentScheme = paymentScheme;
+    }
+
+    public int getnRows() {
+        return nRows;
+    }
+
+    public void setnRows(int nRows) {
+        this.nRows = nRows;
+    }
+
+    public int getMaxSpaces() {
+        return maxSpaces;
+    }
+
+    public void setMaxSpaces(int maxSpaces) {
+        this.maxSpaces = maxSpaces;
     }
 
     public int getEmptyMotorcycleSpaces() {
@@ -144,4 +189,6 @@ public class Garage {
     public void setOccupiedTruckSpaces(int occupiedTruckSpaces) {
         this.occupiedTruckSpaces = occupiedTruckSpaces;
     }
+
+
 }

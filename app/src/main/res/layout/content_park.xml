@@ -26,7 +26,8 @@
             android:id="@+id/plateNumEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="License Plate Number" />
+            android:hint="License Plate Number"
+            android:text="APK-3542"/>
     </android.support.design.widget.TextInputLayout>
 
     <RadioGroup
@@ -52,6 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:checked="true"
             android:text="Car" />
 
         <RadioButton

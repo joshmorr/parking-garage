@@ -23,8 +23,10 @@
     <string name="n_rows">Number of Rows</string>
     <string name="total_spaces">Total Spaces:</string>
     <string name="finish">Finish</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_activity_attendants_list">AttendantsListActivity</string>
-    <string name="title_activity_park">ParkActivity</string>
-    <string name="title_activity_ticket">TicketActivity</string>
+    <string name="title_activity_attendant">Vehicles</string>
+    <string name="title_activity_attendants_list">Attendants List</string>
+    <string name="title_activity_park">Park</string>
+    <string name="title_activity_ticket">Ticket</string>
+    <string name="title_activity_retrieve">Retrieve</string>
+    <string name="title_activity_receipt">Receipt</string>
 </resources>

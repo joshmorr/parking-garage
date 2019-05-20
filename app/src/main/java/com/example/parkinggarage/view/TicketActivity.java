@@ -1,15 +1,30 @@
 package com.example.parkinggarage.view;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.parkinggarage.R;
+import com.example.parkinggarage.model.Attendant;
+import com.example.parkinggarage.model.Vehicle;
+import com.example.parkinggarage.presenter.TicketActivityPresenter;
 
-public class TicketActivity extends AppCompatActivity {
+public class TicketActivity extends AppCompatActivity implements TicketActivityPresenter.View {
+    private Vehicle vehicle;
+    private Attendant attendant;
+    private CoordinatorLayout coordinatorLayout;
+    private TextView dataTextView;
+    private TextView labelsTextView;
+    private Button printButton;
+    private Button finishButton;
+    private Intent intent;
+    private TicketActivityPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +33,49 @@ public class TicketActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
+        dataTextView = findViewById(R.id.dataTextView);
+        dataTextView = findViewById(R.id.dataTextView);
+        labelsTextView = findViewById(R.id.labelsTextView);
+        printButton = findViewById(R.id.printButton);
+        finishButton = findViewById(R.id.finishButton);
+
+        vehicle = (Vehicle) getIntent().getExtras().get("vehicle");
+        attendant = (Attendant) getIntent().getExtras().get("attendant");
+
+        presenter = new TicketActivityPresenter(vehicle, attendant, this);
+        presenter.setLabels();
+        presenter.setData();
+
+        printButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v) {
+                Snackbar.make(coordinatorLayout, "The ticket has been sent to the printer.", Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        intent = new Intent(this, AttendantActivity.class);
+        finishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.finish();
             }
         });
     }
 
+    @Override
+    public void setLabels(String labels) {
+        labelsTextView.setText(labels);
+    }
+
+    @Override
+    public void setData(String data) {
+        dataTextView.setText(data);
+    }
+
+    @Override
+    public void startAttendantActivity(Attendant attendant) {
+        intent.putExtra("attendant", attendant);
+        startActivity(intent);
+    }
 }
