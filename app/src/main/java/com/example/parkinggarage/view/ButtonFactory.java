@@ -1,6 +1,5 @@
 package com.example.parkinggarage.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.widget.Button;

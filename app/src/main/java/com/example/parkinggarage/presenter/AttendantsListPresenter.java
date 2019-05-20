@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.example.parkinggarage.model.Attendant;
 import com.example.parkinggarage.model.InputStrings;
+import com.example.parkinggarage.model.Vehicle;
 import com.example.parkinggarage.view.ButtonFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -22,15 +23,20 @@ import static android.support.constraint.Constraints.TAG;
 public class AttendantsListPresenter {
     private FirebaseFirestore database;
     private View view;
+    private String managerUsername;
     private static String TAG = "AttendantsListActivity:";
 
-    public AttendantsListPresenter(FirebaseFirestore database, View view) {
+    public AttendantsListPresenter(FirebaseFirestore database, View view, String managerUsername) {
         this.database = database;
         this.view = view;
     }
 
-    public void getAttendantsList(String username, final ButtonFactory buttonFactory) {
-        database.collection("managers").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+    public void create() {
+        view.showDialog();
+    }
+
+    public void getAttendantsList() {
+        database.collection("managers").document(managerUsername).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -38,27 +44,31 @@ public class AttendantsListPresenter {
                 if (task.isSuccessful()) {
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        ArrayList<String> list =  (ArrayList<String>) document.get("attendantsList");
-                        Iterator<String> iterator = list.iterator();
-                        while (iterator.hasNext()) {
-                            String username = iterator.next();
-                            database.collection("attendants").document(username).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                                            String firstname = (String) document.get("firstname");
-                                            String lastname = (String) document.get("lastname");
-                                            Button button = buttonFactory.getButton(firstname + " " + lastname);
-                                            view.addViewToLayout(button);
+                        final ArrayList<String> usernameList =  (ArrayList<String>) document.get("attendantsList");
+                        final ArrayList<Attendant> attendantsList = new ArrayList<>(usernameList.size());
+                        for (int i = 0; i < usernameList.size(); i++) {
+                            String attendantUsername = usernameList.get(i);
+                            if (attendantUsername != null) {
+                                database.collection("attendants").document(attendantUsername).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot document = task.getResult();
+                                            if (document.exists()) {
+                                                Attendant attendant = document.toObject(Attendant.class);
+                                                attendantsList.add(attendant);
+                                                Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                            } else {
+                                                Log.d(TAG, "No such document");
+                                            }
+                                        } else {
+                                            Log.d(TAG, "get failed with ", task.getException());
+                                        }
                                     }
-                                    else {
-                                        Log.d(TAG, "No such document");
-                                    }
-                                }
-                            });
+                                });
+                            }
                         }
+                        view.setListAdapter(attendantsList);
                     }
                     else {
                         Log.d(TAG, "No such document");
@@ -72,6 +82,7 @@ public class AttendantsListPresenter {
     }
 
     public interface View {
-        void addViewToLayout(Button button);
+        void setListAdapter(ArrayList<Attendant> attendantsList);
+        void showDialog();
     }
 }

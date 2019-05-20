@@ -79,19 +79,8 @@ public class AttendantActivityPresenter {
                     if (document.exists()) {
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         Garage garage = document.toObject(Garage.class);
-                        final ArrayList<Vehicle> vehiclesList = garage.getParkedVehiclesList();
-                        database.collection("garages").document(garageId).set(garage).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "DocumentSnapshot successfully written!");
-                                view.setListAdapter(vehiclesList);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error writing document", e);
-                            }
-                        });
+                        final ArrayList<Vehicle> vehiclesList = (ArrayList<Vehicle>) document.get("parkedVehiclesList");
+                        view.setListAdapter(vehiclesList);
 
                     } else {
                         Log.d(TAG, "No such document");

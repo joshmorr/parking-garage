@@ -10,7 +10,6 @@ public class ReceiptActivityPresenter {
 
     public ReceiptActivityPresenter(Vehicle vehicle, View view) {
         this.vehicle = vehicle;
-        this.attendant = attendant;
         this.view = view;
     }
 

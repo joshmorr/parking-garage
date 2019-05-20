@@ -8,16 +8,27 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.example.parkinggarage.R;
+import com.example.parkinggarage.model.Attendant;
 import com.example.parkinggarage.presenter.AttendantsListPresenter;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 public class AttendantsListActivity extends AppCompatActivity implements AttendantsListPresenter.View {
-    private LinearLayout layout;
+    private FirebaseFirestore database;
+    private String username;
+    private AttendantsListPresenter presenter;
+    private ListView listView;
+    private ArrayAdapter adapter;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
     @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -27,19 +38,15 @@ public class AttendantsListActivity extends AppCompatActivity implements Attenda
         Toolbar toolbar = findViewById(R.id.toolbar);
 
         FirebaseApp.initializeApp(AttendantsListActivity.this);
-        final FirebaseFirestore database = FirebaseFirestore.getInstance();
+        database = FirebaseFirestore.getInstance();
 
-        AttendantsListPresenter presenter = new AttendantsListPresenter(database, this);
+        listView = findViewById(R.id.attendantsListView);
 
-        final String username = getIntent().getExtras().getString("username");
+        username = getIntent().getExtras().getString("username");
+        presenter = new AttendantsListPresenter(database, this, username);
 
-        layout = findViewById(R.id.linearLayout);
-
-        final ButtonFactory buttonFactory = new ButtonFactory(AttendantsListActivity.this);
-        presenter.getAttendantsList(username, buttonFactory);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(R.layout.dialog_attendant_setup)
+        dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setView(R.layout.dialog_attendant_setup)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -51,20 +58,25 @@ public class AttendantsListActivity extends AppCompatActivity implements Attenda
                         finish();
                     }
         });
-        final AlertDialog dialog = builder.create();
+        dialog = dialogBuilder.create();
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.show();
+                presenter.create();
             }
         });
-
     }
 
     @Override
-    public void addViewToLayout(Button button) {
-        layout.addView(button);
+    public void setListAdapter(ArrayList<Attendant> attendantsList) {
+        adapter = new ArrayAdapter<>(this, R.layout.list_item, attendantsList);
+        listView.setAdapter(adapter);
+    }
+
+    @Override
+    public void showDialog() {
+        dialog.show();
     }
 }
