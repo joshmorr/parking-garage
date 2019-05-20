@@ -18,20 +18,20 @@ public class TicketActivityPresenter {
         view.startAttendantActivity(attendant);
     }
 
-    public void setData() {
-        view.setData(vehicle.getTicketData());
-    }
-
     public void setLabels() {
         StringBuilder builder = new StringBuilder();
         builder.append("License Plate Number:")
                 .append("\n\nVehicle Category:")
                 .append("\n\nAttendant Name:")
                 .append("\n\nDate:")
-                .append("\n\nTimeParked:")
+                .append("\n\nTime Parked:")
                 .append("\n\nRate")
                 .append("\n\n");
         view.setLabels(builder.toString());
+    }
+
+    public void setData() {
+        view.setData(vehicle.getTicketData());
     }
 
     public interface View {

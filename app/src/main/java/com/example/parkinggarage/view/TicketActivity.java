@@ -23,6 +23,7 @@ public class TicketActivity extends AppCompatActivity implements TicketActivityP
     private TextView labelsTextView;
     private Button printButton;
     private Button finishButton;
+    private Snackbar snackbar;
     private Intent intent;
     private TicketActivityPresenter presenter;
 
@@ -39,6 +40,7 @@ public class TicketActivity extends AppCompatActivity implements TicketActivityP
         labelsTextView = findViewById(R.id.labelsTextView);
         printButton = findViewById(R.id.printButton);
         finishButton = findViewById(R.id.finishButton);
+        snackbar = Snackbar.make(coordinatorLayout, "The ticket has been sent to the printer.", Snackbar.LENGTH_SHORT);
 
         vehicle = (Vehicle) getIntent().getExtras().get("vehicle");
         attendant = (Attendant) getIntent().getExtras().get("attendant");
@@ -50,7 +52,7 @@ public class TicketActivity extends AppCompatActivity implements TicketActivityP
         printButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(coordinatorLayout, "The ticket has been sent to the printer.", Snackbar.LENGTH_SHORT).show();
+                presenter.print();
             }
         });
 
@@ -74,8 +76,13 @@ public class TicketActivity extends AppCompatActivity implements TicketActivityP
     }
 
     @Override
+    public void showSnackbar() {
+        snackbar.show();
+    }
+
+    @Override
     public void startAttendantActivity(Attendant attendant) {
         intent.putExtra("attendant", attendant);
-        startActivity(intent);
+        startAttendantActivity(intent);
     }
 }

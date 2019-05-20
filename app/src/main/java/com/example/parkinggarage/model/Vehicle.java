@@ -12,6 +12,7 @@ public class Vehicle implements Parcelable {
     private Timestamp timeParked;
     private Timestamp timeRetrieved;
     private double rate;
+    private double total;
     private int rowNum;
     private int spaceNum;
 
@@ -24,6 +25,7 @@ public class Vehicle implements Parcelable {
         this.attendantName = attendantName;
         this.timeParked = timeParked;
         this.rate = rate;
+        total = 0;
         rowNum = -1;
         spaceNum = -1;
     }
@@ -68,6 +70,24 @@ public class Vehicle implements Parcelable {
             am_pm = "AM";
         }
         return hour + str.substring(13,16) + " " + am_pm;
+    }
+
+    public String getReceiptData() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(plateNumber)
+                .append("\n\n")
+                .append(getCategoryString())
+                .append("\n\n")
+                .append(attendantName)
+                .append("\n\n")
+                .append("2/3/2019")
+                .append("\n\n")
+                .append(getTimeString(timeParked))
+                .append("\n\n")
+                .append(getTimeString(timeRetrieved))
+                .append(String.format("$%.2f / hour\n\n", rate))
+                .append(String.format("$%.2f\n\n", 2));
+        return builder.toString();
     }
 
     public String getTicketData() {
