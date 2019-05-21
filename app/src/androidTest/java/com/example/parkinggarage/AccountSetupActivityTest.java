@@ -1,6 +1,6 @@
 package com.example.parkinggarage;
 
-import com.example.parkinggarage.view.ManagerSetupActivity;
+import com.example.parkinggarage.view.AccountSetupActivity;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -17,10 +17,10 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 @LargeTest
-public class ManagerSetupActivityTest {
+public class AccountSetupActivityTest {
     private String str;
     @Rule
-    public ActivityTestRule<ManagerSetupActivity> activityRule = new ActivityTestRule<>(ManagerSetupActivity.class);
+    public ActivityTestRule<AccountSetupActivity> activityRule = new ActivityTestRule<>(AccountSetupActivity.class);
 
     @Before
     public void setup() {

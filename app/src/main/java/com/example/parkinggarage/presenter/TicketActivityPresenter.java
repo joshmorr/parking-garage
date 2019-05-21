@@ -14,8 +14,12 @@ public class TicketActivityPresenter {
         this.view = view;
     }
 
+    public void printButtonClick() {
+        view.showSnackbar();
+    }
+
     public void finish() {
-        view.startAttendantActivity(attendant);
+        view.startAttendantActivity();
     }
 
     public void setLabels() {
@@ -37,6 +41,7 @@ public class TicketActivityPresenter {
     public interface View {
         void setLabels(String labels);
         void setData(String data);
-        void startAttendantActivity(Attendant attendant);
+        void showSnackbar();
+        void startAttendantActivity();
     }
 }

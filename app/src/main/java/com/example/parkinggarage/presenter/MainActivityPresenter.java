@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.parkinggarage.model.Attendant;
 import com.example.parkinggarage.model.InputStrings;
+import com.example.parkinggarage.model.Manager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -42,7 +43,8 @@ public class MainActivityPresenter {
                         String password = document.getString("password");
                         if (passwordInput.equals(password)) {
                             if (isManager) {
-                                view.startManagerActivity(username);
+                                Manager manager = document.toObject(Manager.class);
+                                view.startManagerActivity(username, manager);
                             }
                             else {
                                 Attendant attendant = document.toObject(Attendant.class);
@@ -63,7 +65,7 @@ public class MainActivityPresenter {
     }
 
     public interface View {
-        void startManagerActivity(String username);
+        void startManagerActivity(String username, Manager manager);
         void startAttendantActivity(Attendant attendant);
     }
 

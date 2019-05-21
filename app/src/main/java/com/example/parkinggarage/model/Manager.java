@@ -1,10 +1,14 @@
 package com.example.parkinggarage.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Manager extends Employee {
+public class Manager extends Employee implements Serializable {
     private String garageId;
     private ArrayList<String> attendantsList;
+
+    public Manager() {
+    }
 
     public Manager(String garageId, InputStrings input) {
         super(input);

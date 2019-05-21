@@ -18,6 +18,7 @@ public abstract class Employee implements Serializable {
         lastname = input.getLastname();
         username = input.getUsername();
         password = input.getPassword();
+        garageId = null;
     }
 
     public Employee(String firstname, String lastname, String username, String password) {
@@ -25,6 +26,7 @@ public abstract class Employee implements Serializable {
         this.lastname = lastname;
         this.username = username;
         this.password = password;
+        garageId = null;
     }
 
 

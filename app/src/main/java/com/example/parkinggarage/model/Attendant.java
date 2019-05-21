@@ -14,4 +14,8 @@ public class Attendant extends Employee implements Serializable {
         super(firstname, lastname, username, password);
     }
 
+    @Override
+    public String toString() {
+        return getFirstname() + " " + getLastname();
+    }
 }

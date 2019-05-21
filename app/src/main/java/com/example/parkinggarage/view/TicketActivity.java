@@ -45,6 +45,8 @@ public class TicketActivity extends AppCompatActivity implements TicketActivityP
         vehicle = (Vehicle) getIntent().getExtras().get("vehicle");
         attendant = (Attendant) getIntent().getExtras().get("attendant");
 
+        intent = new Intent(this, AttendantActivity.class);
+
         presenter = new TicketActivityPresenter(vehicle, attendant, this);
         presenter.setLabels();
         presenter.setData();
@@ -52,11 +54,9 @@ public class TicketActivity extends AppCompatActivity implements TicketActivityP
         printButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.print();
+                presenter.printButtonClick();
             }
         });
-
-        intent = new Intent(this, AttendantActivity.class);
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,8 +81,7 @@ public class TicketActivity extends AppCompatActivity implements TicketActivityP
     }
 
     @Override
-    public void startAttendantActivity(Attendant attendant) {
-        intent.putExtra("attendant", attendant);
-        startAttendantActivity(intent);
+    public void startAttendantActivity() {
+        startActivity(intent);
     }
 }

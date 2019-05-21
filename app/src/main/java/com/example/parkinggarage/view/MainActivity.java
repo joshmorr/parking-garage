@@ -13,12 +13,22 @@ import android.widget.RadioGroup;
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.Attendant;
 import com.example.parkinggarage.model.InputStrings;
+import com.example.parkinggarage.model.Manager;
 import com.example.parkinggarage.presenter.MainActivityPresenter;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity implements MainActivityPresenter.View {
+    private MainActivityPresenter presenter;
     private Intent attendantIntent;
+    private Intent setupIntent;
+    private TextInputLayout usernameInputLayout;
+    private TextInputLayout passwordInputLayout;
+    private EditText usernameEditText;
+    private EditText passwordEditText;
+    private Button loginButton;
+    private Button setupButton;
+    private RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +40,21 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         FirebaseApp.initializeApp(getApplicationContext());
         FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-        final MainActivityPresenter presenter = new MainActivityPresenter(database, this);
+        presenter = new MainActivityPresenter(database, this);
 
-        final TextInputLayout usernameInputLayout = findViewById(R.id.usernameInputLayout);
-        final TextInputLayout passwordInputLayout = findViewById(R.id.passwordInputLayout);
-        final EditText usernameEditText = findViewById(R.id.usernameEditText);
-        final EditText passwordEditText = findViewById(R.id.passwordEditText);
-        final Button loginButton = findViewById(R.id.loginButton);
-        final Button setupButton = findViewById(R.id.setupButton);
-        final RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        usernameInputLayout = findViewById(R.id.usernameInputLayout);
+        passwordInputLayout = findViewById(R.id.passwordInputLayout);
+        usernameEditText = findViewById(R.id.usernameEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
+        loginButton = findViewById(R.id.loginButton);
+        setupButton = findViewById(R.id.setupButton);
+        radioGroup = findViewById(R.id.radioGroup);
 
         attendantIntent = new Intent(this, AttendantActivity.class);
+
+        setupIntent = new Intent(this, AccountSetupActivity.class);
+        setupIntent.putExtra("username", "null");
+        setupIntent.putExtra("managerSetup", true);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,14 +84,14 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     }
 
     public void startSetUpActivity() {
-       Intent intent = new Intent(this, ManagerSetupActivity.class);
-       startActivity(intent);
+       startActivity(setupIntent);
     }
 
     @Override
-    public void startManagerActivity(String username) {
+    public void startManagerActivity(String username, Manager manager) {
         Intent intent = new Intent(this, ManagerActivity.class);
         intent.putExtra("username", username);
+        intent.putExtra("manager", manager);
         startActivity(intent);
     }
 

@@ -16,7 +16,7 @@
         app:errorEnabled="true">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/firstnameEditText"
+            android:id="@+id/attendantFirstnameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="First Name" />
@@ -33,7 +33,7 @@
         app:errorEnabled="true">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/lastnameEditText"
+            android:id="@+id/attendantLastnameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Last Name" />
@@ -50,7 +50,7 @@
         app:errorEnabled="true">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/usernameEditText"
+            android:id="@+id/attendantUsernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username" />
@@ -67,10 +67,10 @@
         app:errorEnabled="true">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/passwordEditText"
+            android:id="@+id/attendantPasswordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
+            android:hint="Password"
             android:inputType="textPassword"/>
     </android.support.design.widget.TextInputLayout>
 
