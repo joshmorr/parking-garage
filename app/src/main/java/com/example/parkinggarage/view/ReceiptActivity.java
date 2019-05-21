@@ -3,6 +3,7 @@ package com.example.parkinggarage.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -23,6 +24,7 @@ public class ReceiptActivity extends AppCompatActivity implements ReceiptActivit
     private Button finishButton;
     private CoordinatorLayout coordinatorLayout;
     private ReceiptActivityPresenter presenter;
+    private Snackbar snackbar;
     private Intent intent;
 
     @Override
@@ -36,14 +38,18 @@ public class ReceiptActivity extends AppCompatActivity implements ReceiptActivit
         dataTextView = findViewById(R.id.dataTextView);
         printButton = findViewById(R.id.printButton);
         finishButton = findViewById(R.id.finishButton);
+        coordinatorLayout = findViewById(R.id.coordinatorLayout);
+        snackbar = Snackbar.make(coordinatorLayout, "The receipt has been sent to the printer.", Snackbar.LENGTH_SHORT);
 
         attendant = (Attendant) getIntent().getExtras().get("attendant");
-        vehicle = (Vehicle) getIntent().getExtras().get("vehicles");
+        vehicle = (Vehicle) getIntent().getExtras().get("vehicle");
 
         intent = new Intent(this, AttendantActivity.class);
         intent.putExtra("attendant", attendant);
 
         presenter = new ReceiptActivityPresenter(vehicle, this);
+        presenter.setLabels();
+        presenter.setData();
 
         printButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,10 +78,10 @@ public class ReceiptActivity extends AppCompatActivity implements ReceiptActivit
 
     @Override
     public void showSnackbar() {
-
+        snackbar.show();
     }
     @Override
     public void startAttendantActivity() {
-        startAttendantActivity();
+        startActivity(intent);
     }
 }

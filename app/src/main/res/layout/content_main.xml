@@ -57,13 +57,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:checked="true"
             android:text="Attendant" />
 
         <RadioButton
             android:id="@+id/managerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
             android:text="Manager"
             tools:layout_editor_absoluteX="134dp"
             tools:layout_editor_absoluteY="374dp" />
@@ -88,8 +88,7 @@
             android:id="@+id/usernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/username"
-            android:text="morrj1"/>
+            android:hint="@string/username"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -112,8 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="textPassword"
-            android:text="password1"/>
+            android:inputType="textPassword"/>
     </android.support.design.widget.TextInputLayout>
 
 </android.support.constraint.ConstraintLayout>

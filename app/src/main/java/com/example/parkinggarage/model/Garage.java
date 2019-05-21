@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 public class Garage {
     private ArrayList<Row> rowsList;
-    private ArrayList<Vehicle> parkedVehiclesList;
     private String name;
     private PaymentScheme paymentScheme;
     private int nRows;
@@ -27,7 +26,6 @@ public class Garage {
     }
 
     public Garage(TableLayout tableLayout, String name) {
-        parkedVehiclesList = new ArrayList<>();
         this.name = name;
         paymentScheme = new PaymentScheme();
         emptyMotorcycleSpaces = 0;
@@ -75,7 +73,6 @@ public class Garage {
                     vehicle.setRowNum(i+1);
                     vehicle.setSpaceNum(j+1);
                     space.setVehicle(vehicle);
-                    parkedVehiclesList.add(vehicle);
                     if (space.getCategory().equals(Category.MOTORCYCLE)) {
                        occupiedMotorcycleSpaces++;
                        emptyMotorcycleSpaces--;
@@ -100,14 +97,6 @@ public class Garage {
 
     public void setRowsList(ArrayList<Row> rowsList) {
         this.rowsList = rowsList;
-    }
-
-    public ArrayList<Vehicle> getParkedVehiclesList() {
-        return parkedVehiclesList;
-    }
-
-    public void setParkedVehiclesList(ArrayList<Vehicle> parkedVehiclesList) {
-        this.parkedVehiclesList = parkedVehiclesList;
     }
 
     public String getName() {

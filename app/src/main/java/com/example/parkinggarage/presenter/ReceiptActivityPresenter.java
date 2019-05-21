@@ -1,8 +1,6 @@
 package com.example.parkinggarage.presenter;
 
-import com.example.parkinggarage.model.Attendant;
 import com.example.parkinggarage.model.Vehicle;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ReceiptActivityPresenter {
     private Vehicle vehicle;
@@ -27,7 +25,7 @@ public class ReceiptActivityPresenter {
     }
 
     public void setData() {
-        view.setData(vehicle.getReceiptData());
+        view.setData(vehicle.receiptData());
     }
 
     public void print() {

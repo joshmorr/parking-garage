@@ -24,6 +24,10 @@ public class MainActivityPresenter {
         this.view = view;
     }
 
+    public void setPasswordError(String message) {
+        view.setPasswordError(message);
+    }
+
     public void login(final boolean isManager, InputStrings input) {
         if (isManager)
             collection = managersCollection;
@@ -67,6 +71,7 @@ public class MainActivityPresenter {
     public interface View {
         void startManagerActivity(String username, Manager manager);
         void startAttendantActivity(Attendant attendant);
+        void setPasswordError(String message);
     }
 
 }

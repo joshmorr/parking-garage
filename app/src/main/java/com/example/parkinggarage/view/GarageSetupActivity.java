@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.parkinggarage.R;
 import com.example.parkinggarage.model.InputStrings;
+import com.example.parkinggarage.model.Manager;
 import com.example.parkinggarage.presenter.GarageSetupPresenter;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -116,9 +117,10 @@ public class GarageSetupActivity extends AppCompatActivity implements GarageSetu
     }
 
     @Override
-    public void startManagerActivity(String username) {
+    public void startManagerActivity(String username, Manager manager) {
         Intent intent = new Intent(getApplicationContext(), ManagerActivity.class);
         intent.putExtra("username", username);
+        intent.putExtra("manager", manager);
         startActivity(intent);
     }
 }

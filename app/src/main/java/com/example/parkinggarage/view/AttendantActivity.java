@@ -17,6 +17,7 @@ import com.example.parkinggarage.model.Attendant;
 import com.example.parkinggarage.model.Vehicle;
 import com.example.parkinggarage.presenter.AttendantActivityPresenter;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -52,7 +53,7 @@ public class AttendantActivity extends AppCompatActivity implements AttendantAct
         receiptIntent.putExtra("attendant", attendant);
 
         presenter = new AttendantActivityPresenter(database, attendant, this);
-        presenter.getParkedVehiclesList();
+        presenter.getParkedVehicles();
 
         parkButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,10 +66,12 @@ public class AttendantActivity extends AppCompatActivity implements AttendantAct
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Vehicle vehicle = (Vehicle) listView.getItemAtPosition(position);
+                        vehicle.setTimeRetrieved(Timestamp.now());
                         presenter.retrieve(vehicle);
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {

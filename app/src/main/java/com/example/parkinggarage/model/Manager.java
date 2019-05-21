@@ -10,6 +10,11 @@ public class Manager extends Employee implements Serializable {
     public Manager() {
     }
 
+    public Manager(String firstname, String lastname, String username, String password, String garageId) {
+        super(firstname, lastname, username, password);
+        this.garageId = garageId;
+    }
+
     public Manager(String garageId, InputStrings input) {
         super(input);
         this.garageId = garageId;

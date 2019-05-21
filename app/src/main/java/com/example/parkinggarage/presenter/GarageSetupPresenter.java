@@ -45,13 +45,13 @@ public class GarageSetupPresenter {
         });
     }
 
-    public void addToManagerFirestore(FirebaseFirestore database, Manager manager) {
+    public void addToManagerFirestore(FirebaseFirestore database, final Manager manager) {
         final String username = manager.getUsername();
         database.collection("managers").document(username).set(manager).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "DocumentSnapshot successfully written!");
-                view.startManagerActivity(username);
+                view.startManagerActivity(username, manager);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -62,6 +62,6 @@ public class GarageSetupPresenter {
     }
 
     public interface View {
-        void startManagerActivity(String username);
+        void startManagerActivity(String username, Manager manager);
     }
 }

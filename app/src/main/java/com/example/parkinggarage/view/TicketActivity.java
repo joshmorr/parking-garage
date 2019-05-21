@@ -46,6 +46,7 @@ public class TicketActivity extends AppCompatActivity implements TicketActivityP
         attendant = (Attendant) getIntent().getExtras().get("attendant");
 
         intent = new Intent(this, AttendantActivity.class);
+        intent.putExtra("attendant", attendant);
 
         presenter = new TicketActivityPresenter(vehicle, attendant, this);
         presenter.setLabels();

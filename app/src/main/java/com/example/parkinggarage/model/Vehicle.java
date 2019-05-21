@@ -9,10 +9,10 @@ public class Vehicle implements Parcelable {
     private Category category;
     private String plateNumber;
     private String attendantName;
+    private String id;
     private Timestamp timeParked;
     private Timestamp timeRetrieved;
     private double rate;
-    private double total;
     private int rowNum;
     private int spaceNum;
 
@@ -24,8 +24,8 @@ public class Vehicle implements Parcelable {
         this.plateNumber = plateNumber;
         this.attendantName = attendantName;
         this.timeParked = timeParked;
+        timeRetrieved = null;
         this.rate = rate;
-        total = 0;
         rowNum = -1;
         spaceNum = -1;
     }
@@ -35,6 +35,7 @@ public class Vehicle implements Parcelable {
         category = in.readParcelable(Category.class.getClassLoader());
         plateNumber = in.readString();
         attendantName = in.readString();
+        id = in.readString();
         timeParked = in.readParcelable(Timestamp.class.getClassLoader());
         timeRetrieved = in.readParcelable(Timestamp.class.getClassLoader());
         rate = in.readDouble();
@@ -54,6 +55,11 @@ public class Vehicle implements Parcelable {
         }
     };
 
+    private double total() {
+        Long seconds = Math.abs(timeRetrieved.getSeconds() - timeParked.getSeconds());
+        return (seconds.doubleValue() / 3600) * rate;
+    }
+
     private String getDateString(Timestamp timestamp) {
         return null;
     }
@@ -72,7 +78,7 @@ public class Vehicle implements Parcelable {
         return hour + str.substring(13,16) + " " + am_pm;
     }
 
-    public String getReceiptData() {
+    public String receiptData() {
         StringBuilder builder = new StringBuilder();
         builder.append(plateNumber)
                 .append("\n\n")
@@ -83,14 +89,16 @@ public class Vehicle implements Parcelable {
                 .append("2/3/2019")
                 .append("\n\n")
                 .append(getTimeString(timeParked))
-                .append("\n\n")
-                .append(getTimeString(timeRetrieved))
-                .append(String.format("$%.2f / hour\n\n", rate))
-                .append(String.format("$%.2f\n\n", 2));
+                .append("\n\n");
+        if (timeRetrieved != null) {
+            builder.append(getTimeString(timeRetrieved));
+        }
+        builder.append(String.format("\n\n$%.2f / hour", rate))
+                .append(String.format("\n\n$%.2f", total()));
         return builder.toString();
     }
 
-    public String getTicketData() {
+    public String ticketData() {
         StringBuilder builder = new StringBuilder();
         builder.append(plateNumber)
                 .append("\n\n")
@@ -124,7 +132,7 @@ public class Vehicle implements Parcelable {
         builder.append(timeStr);
         for (int i = 0; i < space - timeStr.length(); i++)
             builder.append(" ");
-        builder.append(plateNumber);
+        builder.append("Row: " + rowNum + ", Space: " + spaceNum);
         return builder.toString();
     }
 
@@ -150,6 +158,14 @@ public class Vehicle implements Parcelable {
 
     public void setAttendantName(String attendantName) {
         this.attendantName = attendantName;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Timestamp getTimeParked() {
@@ -202,6 +218,7 @@ public class Vehicle implements Parcelable {
         dest.writeParcelable(category, flags);
         dest.writeString(plateNumber);
         dest.writeString(attendantName);
+        dest.writeString(id);
         dest.writeParcelable(timeParked, flags);
         dest.writeParcelable(timeRetrieved, flags);
         dest.writeDouble(rate);

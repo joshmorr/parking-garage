@@ -35,7 +35,7 @@ public class TicketActivityPresenter {
     }
 
     public void setData() {
-        view.setData(vehicle.getTicketData());
+        view.setData(vehicle.ticketData());
     }
 
     public interface View {

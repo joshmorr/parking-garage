@@ -48,7 +48,8 @@ public class AccountSetupActivity extends AppCompatActivity implements AccountSe
         managerSetup = getIntent().getExtras().getBoolean("managerSetup");
         if (managerSetup) {
             intent = new Intent(this, GarageSetupActivity.class);
-            manager = null;
+            manager = new Manager();
+            manager.setUsername("null");
         }
         else {
             intent = new Intent(this, AttendantsListActivity.class);

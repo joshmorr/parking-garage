@@ -15,8 +15,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class ParkActivityPresenter {
     private FirebaseFirestore database;
@@ -41,14 +43,28 @@ public class ParkActivityPresenter {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         Log.d(TAG, "Document exists");
-                        Garage garage = document.toObject(Garage.class);
+                        final Garage garage = document.toObject(Garage.class);
                         final Vehicle vehicle = new Vehicle(category, plateNum, firstname, Timestamp.now(), garage.getPaymentScheme().getRate(category));
                         garage.parkVehicle(vehicle);
                         database.collection("garages").document(garageId).set(garage).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.d(TAG, "DocumentSnapshot successfully written!");
-                                view.startTicketActivity(vehicle);
+                                DocumentReference documentReference = database.collection("garages").document(garageId).collection("vehicles").document();
+                                final String vehicleId = documentReference.getId();
+                                vehicle.setId(vehicleId);
+                                database.collection("garages").document(garageId).collection("vehicles").document(vehicleId).set(vehicle).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                                        view.startTicketActivity(vehicle);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error writing document", e);
+                                    }
+                                });
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override

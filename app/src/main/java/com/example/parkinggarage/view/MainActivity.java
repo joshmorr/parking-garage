@@ -68,9 +68,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
                     isManager = true;
                 else
                     isManager = false;
-
-                presenter.login(isManager, input);
-
+                try {
+                    presenter.login(isManager, input);
+                } catch (IllegalArgumentException e) {
+                    presenter.setPasswordError("You must enter a username and a password!");
+                }
             }
         });
 
@@ -99,5 +101,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     public void startAttendantActivity(Attendant attendant) {
         attendantIntent.putExtra("attendant", attendant);
         startActivity(attendantIntent);
+    }
+
+    @Override
+    public void setPasswordError(String message) {
+        passwordInputLayout.setError(message);
     }
 }
